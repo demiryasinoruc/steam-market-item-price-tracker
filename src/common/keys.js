@@ -1,3 +1,1 @@
-module.exports = {
-  CONTENT_SCRIPT_LOADED: 'CONTENT_SCRIPT_LOADED'
-}
+module.exports = {}

@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "name": "vue-chrome-extension-boilerplate",
-  "description": "vue-chrome-extension-boilerplate",
+  "name": "steam-market-item-price-tracker",
+  "description": "steam-market-item-price-tracker",
   "author": {
     "email": "demiryasinoruc@gmail.com",
     "name": "Demir Yasin ORUÇ"
@@ -11,7 +11,6 @@
     "build": "npm run pack && npm run set-production && npm run remove-evals && npm run zip",
     "lint": "eslint --ext .js,.vue --fix ./src",
     "pack": "webpack --mode=production --env.NODE_ENV=production --progress --hide-modules",
-    "set-production": "node scripts/set-production.js",
     "remove-evals": "node scripts/remove-evals.js",
     "zip": "node scripts/build-zip.js"
   },
