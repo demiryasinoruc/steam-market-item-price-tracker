@@ -16,8 +16,8 @@
   "content_scripts": [
     {
       "all_frames": false,
-      "js": ["./content_scripts/index.js"],
-      "matches": ["*://*.test.com/*"],
+      "js": ["./content_scripts/market.js"],
+      "matches": ["*://steamcommunity.com/market?smipt=*"],
       "run_at": "document_end"
     }
   ],

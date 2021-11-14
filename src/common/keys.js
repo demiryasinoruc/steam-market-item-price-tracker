@@ -1,1 +1,3 @@
-module.exports = {}
+module.exports = {
+  INSTALLATION_COMPLETED: 'INSTALLATION_COMPLETED'
+}
