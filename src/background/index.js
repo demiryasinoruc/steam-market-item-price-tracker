@@ -29,6 +29,32 @@ const getSettings = () => {
   })
 }
 
+const checkDiff = (data, item) => {
+  console.log(data)
+  console.log(item)
+  console.log('_________________________')
+}
+
+const readData = async iteration => {
+  const item = trackList[iteration]
+  const orderHistogramUrl = `https://steamcommunity.com/market/itemordershistogram?country=${
+    user.country
+  }&language=${user.language}&currency=${user.currency}&item_nameid=${
+    item.id
+  }&two_factor=0&norender=1`
+  const steamResponse = await fetch(orderHistogramUrl)
+  if (steamResponse.status !== 200) {
+    trackingIteration--
+    return
+  }
+  const data = await steamResponse.json()
+  if (data.success !== 1) {
+    trackingIteration--
+    return
+  }
+  checkDiff(data, item)
+}
+
 const start = async () => {
   await getSettings()
 
@@ -45,24 +71,23 @@ const start = async () => {
       // reset current iteration
       currentIteration = 1
     }
-    if (trackingIteration++ > trackList.length) {
-      trackingIteration = 0
+    if (trackingIteration++ >= trackList.length) {
+      trackingIteration = 1
     }
+    readData(trackingIteration - 1)
   }, 1000)
-  logger.info({ settings, currentIteration, user })
 }
 
 // ##### Handlers
 
 // On Install Handler
 const onInstallHandler = async installDetails => {
-  const { reason, previousVersion } = installDetails
+  const { reason } = installDetails
   if (reason === 'install') {
     await browser.tabs.create({
       url: INSTALLATION_URL
     })
   }
-  logger.info({ reason, previousVersion })
 }
 
 // On Runtime Message Handler
