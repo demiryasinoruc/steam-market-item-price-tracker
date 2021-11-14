@@ -29,10 +29,50 @@ const getSettings = () => {
   })
 }
 
+const checkBuyOrderDiffs = (buyOrderGraph, item) => {
+  if (!buyOrderGraph.length) {
+    return
+  }
+  const { minOrderAmount, maxOrderAmount } = item
+  const [price, , message] = buyOrderGraph[0]
+  // check under min order amount
+  if (minOrderAmount && price < minOrderAmount) {
+    // buy orders going down
+    console.log(message)
+  }
+  // check under max order amount
+  if (maxOrderAmount && price > maxOrderAmount) {
+    // buy orders going up
+    console.log(message)
+  }
+}
+
+const checkSellOrderDiffs = (sellOrderGraph, item) => {
+  if (!sellOrderGraph.length) {
+    return
+  }
+  const { minSalesAmount, maxSalesAmount } = item
+  const [price, , message] = sellOrderGraph[0]
+  // check under min order amount
+  if (minSalesAmount && price < minSalesAmount) {
+    // sell orders going down
+    console.log(message)
+  }
+  // check under max order amount
+  if (maxSalesAmount && price > maxSalesAmount) {
+    // sell orders going up
+    console.log(message)
+  }
+}
+
 const checkDiff = (data, item) => {
-  console.log(data)
-  console.log(item)
-  console.log('_________________________')
+  const {
+    buy_order_graph: buyOrderGraph,
+    sell_order_graph: sellOrderGraph
+  } = data
+
+  checkBuyOrderDiffs(buyOrderGraph, item)
+  checkSellOrderDiffs(sellOrderGraph, item)
 }
 
 const readData = async iteration => {
