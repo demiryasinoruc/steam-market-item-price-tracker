@@ -1,9 +1,11 @@
 import browser from 'webextension-polyfill'
 import logger from '../common/logger-builder'
 import { INSTALLATION_COMPLETED } from '../common/keys'
-import { INSTALLATION_URL } from '../common/constants'
+import { NOTIFICATION_BASE, INSTALLATION_URL } from '../common/constants'
+import { createGuid } from '../common/utility'
 
 let trackList = []
+const notifications = []
 
 let user = null
 let settings = { interval: 8, logLength: 20, logData: false }
@@ -29,7 +31,55 @@ const getSettings = () => {
   })
 }
 
-const checkBuyOrderDiffs = (buyOrderGraph, item) => {
+const showNotification = async (notificationId, title, message) => {
+  await browser.notifications.create(notificationId, {
+    ...NOTIFICATION_BASE,
+    title,
+    message
+  })
+}
+
+const addNotification = async (notificationId, item, title, message) => {
+  const existNotificationIndex = notifications.findIndex(
+    n => n.item.name === item.name
+  )
+  let showDesktopNotification = false
+  if (existNotificationIndex !== -1) {
+    const notification = notifications[existNotificationIndex]
+    if (
+      !(
+        notification.item.minOrderAmount === item.minOrderAmount &&
+        notification.item.maxOrderAmount === item.maxOrderAmount &&
+        notification.item.minSalesAmount === item.minSalesAmount &&
+        notification.item.maxSalesAmount === item.maxSalesAmount
+      )
+    ) {
+      notifications.splice(existNotificationIndex, 1)
+      showDesktopNotification = true
+    }
+  } else {
+    showDesktopNotification = true
+    let { notificationLength } = await browser.storage.local.get({
+      notificationLength: 0
+    })
+    notificationLength++
+    await browser.storage.local.set({
+      notificationLength
+    })
+    await browser.browserAction.setBadgeText({
+      text: notificationLength.toString()
+    })
+  }
+  if (showDesktopNotification) {
+    showNotification(notificationId, title, message)
+  }
+  notifications.push({
+    notificationId,
+    item
+  })
+}
+
+const checkBuyOrderDiffs = (buyOrderGraph, item, notificationId) => {
   if (!buyOrderGraph.length) {
     return
   }
@@ -38,16 +88,18 @@ const checkBuyOrderDiffs = (buyOrderGraph, item) => {
   // check under min order amount
   if (minOrderAmount && price < minOrderAmount) {
     // buy orders going down
-    console.log(message)
+    const title = 'Purchase order price decreased '
+    addNotification(notificationId, item, title, message)
   }
   // check under max order amount
   if (maxOrderAmount && price > maxOrderAmount) {
     // buy orders going up
-    console.log(message)
+    const title = 'Purchase order price increased '
+    addNotification(notificationId, item, title, message)
   }
 }
 
-const checkSellOrderDiffs = (sellOrderGraph, item) => {
+const checkSellOrderDiffs = (sellOrderGraph, item, notificationId) => {
   if (!sellOrderGraph.length) {
     return
   }
@@ -56,12 +108,14 @@ const checkSellOrderDiffs = (sellOrderGraph, item) => {
   // check under min order amount
   if (minSalesAmount && price < minSalesAmount) {
     // sell orders going down
-    console.log(message)
+    const title = 'Sell order price decreased'
+    addNotification(notificationId, item, title, message)
   }
   // check under max order amount
   if (maxSalesAmount && price > maxSalesAmount) {
     // sell orders going up
-    console.log(message)
+    const title = 'Sell order price increased'
+    addNotification(notificationId, item, title, message)
   }
 }
 
@@ -70,9 +124,9 @@ const checkDiff = (data, item) => {
     buy_order_graph: buyOrderGraph,
     sell_order_graph: sellOrderGraph
   } = data
-
-  checkBuyOrderDiffs(buyOrderGraph, item)
-  checkSellOrderDiffs(sellOrderGraph, item)
+  const notificationId = createGuid()
+  checkBuyOrderDiffs(buyOrderGraph, item, notificationId)
+  checkSellOrderDiffs(sellOrderGraph, item, notificationId)
 }
 
 const readData = async iteration => {
@@ -162,6 +216,22 @@ const onRuntimeMessageHandler = (request, sender) => {
   }
 }
 
+// On Notification Clicked Handler
+const onNotificationClickedHandler = async notificationId => {
+  const notification = notifications.find(
+    n => n.notificationId === notificationId
+  )
+  if (!notification) {
+    return
+  }
+  const {
+    item: { name, appid }
+  } = notification
+  await browser.tabs.create({
+    url: `https://steamcommunity.com/market/listings/${appid}/${name}#smipt`
+  })
+}
+
 // ##### Listeners
 
 // On Install Listener
@@ -169,5 +239,10 @@ browser.runtime.onInstalled.addListener(onInstallHandler)
 
 // On Runtime Message Listener
 browser.runtime.onMessage.addListener(onRuntimeMessageHandler)
+
+// On Notification Clicked Listener
+if (browser.notifications.onClicked) {
+  browser.notifications.onClicked.addListener(onNotificationClickedHandler)
+}
 
 start()
