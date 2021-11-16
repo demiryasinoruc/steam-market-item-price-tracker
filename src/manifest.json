@@ -28,14 +28,7 @@
     "128": "assets/icons/icon_128.png"
   },
   "options_page": "./options.html",
-  "permissions": [
-    "*://*.test.com/*",
-    "alarms",
-    "notifications",
-    "storage",
-    "unlimitedStorage",
-    "webRequest"
-  ],
+  "permissions": ["notifications", "storage", "unlimitedStorage"],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "web_accessible_resources": ["data/*.json", "assets/*.svg", "assets/icons/*"]
 }
