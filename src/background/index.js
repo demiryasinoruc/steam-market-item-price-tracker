@@ -1,11 +1,15 @@
 import browser from 'webextension-polyfill'
 import logger from '../common/logger-builder'
-import { INSTALLATION_COMPLETED } from '../common/keys'
+import {
+  INSTALLATION_COMPLETED,
+  GET_NOTIFICATIONS,
+  REMOVE_NOTIFICATION
+} from '../common/keys'
 import { NOTIFICATION_BASE, INSTALLATION_URL } from '../common/constants'
 import { createGuid } from '../common/utility'
 
 let trackList = []
-const notifications = []
+let notifications = []
 
 let user = null
 let settings = { interval: 8, logLength: 20, logData: false }
@@ -59,6 +63,13 @@ const addNotification = async (notificationId, item, title, message) => {
     }
   } else {
     showDesktopNotification = true
+  }
+  if (showDesktopNotification) {
+    notifications.push({
+      notificationId,
+      item
+    })
+    showNotification(notificationId, title, message)
     let { notificationLength } = await browser.storage.local.get({
       notificationLength: 0
     })
@@ -70,13 +81,6 @@ const addNotification = async (notificationId, item, title, message) => {
       text: notificationLength.toString()
     })
   }
-  if (showDesktopNotification) {
-    showNotification(notificationId, title, message)
-  }
-  notifications.push({
-    notificationId,
-    item
-  })
 }
 
 const checkBuyOrderDiffs = (buyOrderGraph, item, notificationId) => {
@@ -88,13 +92,13 @@ const checkBuyOrderDiffs = (buyOrderGraph, item, notificationId) => {
   // check under min order amount
   if (minOrderAmount && price < minOrderAmount) {
     // buy orders going down
-    const title = 'Purchase order price decreased '
+    const title = 'Purchase order price decreased'
     addNotification(notificationId, item, title, message)
   }
   // check under max order amount
   if (maxOrderAmount && price > maxOrderAmount) {
     // buy orders going up
-    const title = 'Purchase order price increased '
+    const title = 'Purchase order price increased'
     addNotification(notificationId, item, title, message)
   }
 }
@@ -206,6 +210,28 @@ const onRuntimeMessageHandler = (request, sender) => {
         await browser.storage.local.set({ user })
         browser.tabs.remove(sender.tab.id)
         resolve()
+      })
+    }
+    case REMOVE_NOTIFICATION: {
+      return new Promise(async resolve => {
+        const { notification } = request
+        console.log(notification)
+        notifications = notifications.filter(
+          n => n.notificationId !== notification.notificationId
+        )
+        await browser.storage.local.set({
+          notificationLength: notifications.length
+        })
+        await browser.browserAction.setBadgeText({
+          text:
+            notifications.length === 0 ? '' : notifications.length.toString()
+        })
+        resolve()
+      })
+    }
+    case GET_NOTIFICATIONS: {
+      return new Promise(async resolve => {
+        resolve({ notifications })
       })
     }
     default: {
