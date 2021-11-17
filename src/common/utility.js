@@ -1,3 +1,20 @@
+const createElementFromJson = json => {
+  const { tag, text, children, attributes } = json
+  const element = document.createElement(tag)
+  if (attributes) {
+    Object.keys(attributes).forEach(key =>
+      element.setAttribute(key, attributes[key])
+    )
+  }
+  if (text) {
+    element.innerText = text
+  }
+  if (children) {
+    children.forEach(child => element.appendChild(createElementFromJson(child)))
+  }
+  return element
+}
+
 module.exports = {
   delay: timeout => {
     return new Promise(resolve => {
@@ -24,5 +41,6 @@ module.exports = {
       const v = c === 'x' ? r : (r & 0x3) | 0x8
       return v.toString(16)
     })
-  }
+  },
+  createElementFromJson
 }

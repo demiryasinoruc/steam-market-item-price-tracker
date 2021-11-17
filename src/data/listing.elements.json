@@ -1,0 +1,170 @@
+{
+  "tag": "div",
+  "attributes": { "id": "smipt-section" },
+  "children": [
+    {
+      "tag": "hr"
+    },
+    {
+      "tag": "h3",
+      "attributes": {
+        "class": "my_market_header"
+      },
+      "children": [
+        {
+          "tag": "span",
+          "attributes": {
+            "class": "my_market_header_active"
+          },
+          "text": "Steam Market Item Price Tracker"
+        }
+      ]
+    },
+    {
+      "tag": "div",
+      "attributes": { "class": "smipt-row" },
+      "children": [
+        {
+          "tag": "div",
+          "attributes": { "class": "smipt-column smipt-column-left" },
+          "children": [
+            {
+              "tag": "label",
+              "attributes": { "for": "smipt-minOrderAmount" },
+              "text": "Min. Order Amount"
+            },
+            {
+              "tag": "input",
+              "attributes": {
+                "id": "smipt-minOrderAmount",
+                "class": "filter_search_box smipt-input",
+                "type": "number",
+                "min": "0",
+                "step": "0.1"
+              },
+              "text": "Min. Order Amount"
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "attributes": { "class": "smipt-column smipt-column-right" },
+          "children": [
+            {
+              "tag": "label",
+              "attributes": { "for": "smipt-maxOrderAmount" },
+              "text": "Max. Order Amount"
+            },
+            {
+              "tag": "input",
+              "attributes": {
+                "id": "smipt-maxOrderAmount",
+                "class": "filter_search_box smipt-input",
+                "type": "number",
+                "min": "0",
+                "step": "0.1"
+              },
+              "text": "Max. Order Amount"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "div",
+      "attributes": { "class": "smipt-row" },
+      "children": [
+        {
+          "tag": "div",
+          "attributes": { "class": "smipt-column smipt-column-left" },
+          "children": [
+            {
+              "tag": "label",
+              "attributes": { "for": "smipt-minSalesAmount" },
+              "text": "Min. Sales Amount"
+            },
+            {
+              "tag": "input",
+              "attributes": {
+                "id": "smipt-minSalesAmount",
+                "class": "filter_search_box smipt-input",
+                "type": "number",
+                "min": "0",
+                "step": "0.1"
+              },
+              "text": "Min. Sales Amount"
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "attributes": { "class": "smipt-column smipt-column-right" },
+          "children": [
+            {
+              "tag": "label",
+              "attributes": { "for": "smipt-maxSalesAmount" },
+              "text": "Max. Sales Amount"
+            },
+            {
+              "tag": "input",
+              "attributes": {
+                "id": "smipt-maxSalesAmount",
+                "class": "filter_search_box smipt-input",
+                "type": "number",
+                "min": "0",
+                "step": "0.1"
+              },
+              "text": "Max. Sales Amount"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "div",
+      "attributes": { "class": "smipt-row smipt-justify-content-end" },
+      "children": [
+        {
+          "tag": "div",
+          "attributes": {
+            "class": "market_listing_buy_button"
+          },
+          "children": [
+            {
+              "tag": "button",
+              "attributes": {
+                "class": "item_market_action_button btn_green_white_innerfade btn_small smipt-float-right",
+                "type": "button",
+                "id": "smipt-save-button"
+              },
+              "children": [
+                {
+                  "tag": "span",
+                  "text": "Save"
+                }
+              ]
+            },
+            {
+              "tag": "button",
+              "attributes": {
+                "class": "item_market_action_button btn_green_white_innerfade btn_small smipt-float-right smipt-button smipt-red-button",
+                "type": "button",
+                "id": "smipt-remove-button"
+              },
+              "children": [
+                {
+                  "tag": "span",
+                  "text": "Remove"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "div",
+      "attributes": { "id": "smipt-message-row", "class": "smipt-row" }
+    }
+  ]
+}

@@ -15,6 +15,12 @@
   },
   "content_scripts": [
     {
+      "matches": ["*://steamcommunity.com/market/listings/*"],
+      "js": ["./content_scripts/listings.js"],
+      "css": ["./assets/styles/listings.css"],
+      "run_at": "document_end"
+    },
+    {
       "all_frames": false,
       "js": ["./content_scripts/market.js"],
       "matches": ["*://steamcommunity.com/market?smipt=*"],

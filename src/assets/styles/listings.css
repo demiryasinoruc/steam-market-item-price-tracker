@@ -1,0 +1,78 @@
+.smipt-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.smipt-justify-content-end {
+  justify-content: flex-end !important;
+}
+
+.smipt-float-right {
+  float: right !important;
+}
+
+.smipt-column {
+  flex: 1;
+  padding: 0.3rem;
+}
+
+.smipt-column label {
+  line-height: 26px;
+}
+
+.smipt-input {
+  padding: 0.5rem;
+  float: right;
+  min-width: 175px;
+}
+
+.smipt-float-right {
+  float: right !important;
+}
+
+.smipt-error-message {
+  color: red;
+}
+
+.smipt-success-message {
+  color: green;
+}
+
+.smipt-red-button,
+.smipt-red-button span {
+  color: rgb(232, 133, 146) !important;
+  background: linear-gradient(
+    rgb(153, 5, 25) 5%,
+    rgb(105, 4, 21) 95%
+  ) !important;
+}
+
+.smipt-mr-5 {
+  margin-right: 5px;
+}
+
+.smipt-mr-10 {
+  margin-right: 10px;
+}
+
+.smipt-mr-15 {
+  margin-right: 15px;
+}
+
+.smipt-mt-5 {
+  margin-top: 5px;
+}
+
+.smipt-mt-10 {
+  margin-top: 10px;
+}
+
+.smipt-mt-15 {
+  margin-top: 15px;
+}
+
+/* supress steam */
+.smipt-row .market_listing_buy_button {
+  margin-top: 0;
+}

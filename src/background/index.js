@@ -1,10 +1,6 @@
 import browser from 'webextension-polyfill'
 import logger from '../common/logger-builder'
-import {
-  INSTALLATION_COMPLETED,
-  GET_NOTIFICATIONS,
-  REMOVE_NOTIFICATION
-} from '../common/keys'
+import KEYS from '../common/keys'
 import { NOTIFICATION_BASE, INSTALLATION_URL } from '../common/constants'
 import { createGuid } from '../common/utility'
 
@@ -198,7 +194,7 @@ const onRuntimeMessageHandler = (request, sender) => {
     logger.info({ sender, type })
   }
   switch (type) {
-    case INSTALLATION_COMPLETED: {
+    case KEYS.INSTALLATION_COMPLETED: {
       return new Promise(async resolve => {
         const {
           user: {
@@ -212,7 +208,7 @@ const onRuntimeMessageHandler = (request, sender) => {
         resolve()
       })
     }
-    case REMOVE_NOTIFICATION: {
+    case KEYS.REMOVE_NOTIFICATION: {
       return new Promise(async resolve => {
         const { notification } = request
         console.log(notification)
@@ -229,9 +225,29 @@ const onRuntimeMessageHandler = (request, sender) => {
         resolve()
       })
     }
-    case GET_NOTIFICATIONS: {
+    case KEYS.GET_NOTIFICATIONS: {
       return new Promise(async resolve => {
         resolve({ notifications })
+      })
+    }
+    case KEYS.GET_ITEM: {
+      return new Promise(async resolve => {
+        const { id } = request
+        resolve({ item: trackList.find(i => i.id === id) })
+      })
+    }
+    case KEYS.SET_ITEM: {
+      return new Promise(async resolve => {
+        const { item } = request
+        const currentItem = trackList.find(i => i.id === item.id)
+        if (currentItem) {
+          currentItem.minOrderAmount = item.minOrderAmount
+          currentItem.maxOrderAmount = item.maxOrderAmount
+          currentItem.minSalesAmount = item.minSalesAmount
+          currentItem.maxSalesAmount = item.maxSalesAmount
+        }
+        await browser.storage.local.set({ trackList })
+        resolve()
       })
     }
     default: {
