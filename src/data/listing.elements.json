@@ -98,7 +98,9 @@
         },
         {
           "tag": "div",
-          "attributes": { "class": "smipt-column smipt-column-right" },
+          "attributes": {
+            "class": "smipt-column smipt-column-right"
+          },
           "children": [
             {
               "tag": "label",
@@ -122,39 +124,47 @@
     },
     {
       "tag": "div",
-      "attributes": { "class": "smipt-row smipt-justify-content-end" },
+      "attributes": {
+        "class": "smipt-row smipt-justify-content-end smipt-mt-5"
+      },
       "children": [
         {
           "tag": "div",
-          "attributes": {
-            "class": "market_listing_buy_button"
-          },
+          "attributes": { "class": "smipt-column" },
           "children": [
             {
-              "tag": "button",
+              "tag": "div",
               "attributes": {
-                "class": "item_market_action_button btn_green_white_innerfade btn_small smipt-float-right",
-                "type": "button",
-                "id": "smipt-save-button"
+                "class": "market_listing_buy_button"
               },
               "children": [
                 {
-                  "tag": "span",
-                  "text": "Save"
-                }
-              ]
-            },
-            {
-              "tag": "button",
-              "attributes": {
-                "class": "item_market_action_button btn_green_white_innerfade btn_small smipt-float-right smipt-button smipt-red-button",
-                "type": "button",
-                "id": "smipt-remove-button"
-              },
-              "children": [
+                  "tag": "button",
+                  "attributes": {
+                    "class": "item_market_action_button btn_green_white_innerfade btn_small smipt-float-right",
+                    "type": "button",
+                    "id": "smipt-save-button"
+                  },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "text": "Save"
+                    }
+                  ]
+                },
                 {
-                  "tag": "span",
-                  "text": "Remove"
+                  "tag": "button",
+                  "attributes": {
+                    "class": "item_market_action_button btn_green_white_innerfade btn_small smipt-float-right smipt-button smipt-red-button smipt-mr-15",
+                    "type": "button",
+                    "id": "smipt-remove-button"
+                  },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "text": "Remove"
+                    }
+                  ]
                 }
               ]
             }
