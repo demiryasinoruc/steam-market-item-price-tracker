@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill'
 
 import { GET_ITEM, REMOVE_ITEM, SET_ITEM } from '../common/keys'
-import { createElementFromJson } from '../common/utility'
+import { createElementFromJson, delay } from '../common/utility'
 
 import LISTING_ELEMENTS from '../data/listing.elements.json'
 
@@ -10,6 +10,11 @@ let currentItemId = null
 let currentItemName = null
 let currentAppName = null
 let currentAppId = null
+
+let minOrderAmountInput = null
+let maxOrderAmountInput = null
+let minSalesAmountInput = null
+let maxSalesAmountInput = null
 
 const inputOnBlur = e => {
   const value = parseFloat(e.target.value)
@@ -35,18 +40,10 @@ const setMessage = (message, selector) => {
 }
 
 const saveHandler = async () => {
-  const minOrderAmount = parseFloat(
-    document.querySelector('#smipt-minOrderAmount').value
-  )
-  const maxOrderAmount = parseFloat(
-    document.querySelector('#smipt-maxOrderAmount').value
-  )
-  const minSalesAmount = parseFloat(
-    document.querySelector('#smipt-minSalesAmount').value
-  )
-  const maxSalesAmount = parseFloat(
-    document.querySelector('#smipt-maxSalesAmount').value
-  )
+  const minOrderAmount = parseFloat(minOrderAmountInput.value)
+  const maxOrderAmount = parseFloat(maxOrderAmountInput.value)
+  const minSalesAmount = parseFloat(minSalesAmountInput.value)
+  const maxSalesAmount = parseFloat(maxSalesAmountInput.value)
 
   const item = {
     minOrderAmount,
@@ -76,10 +73,10 @@ const removeHandler = async () => {
     type: REMOVE_ITEM,
     id: currentItemId
   })
-  document.querySelector('#smipt-minOrderAmount').value = 0
-  document.querySelector('#smipt-maxOrderAmount').value = 0
-  document.querySelector('#smipt-minSalesAmount').value = 0
-  document.querySelector('#smipt-maxSalesAmount').value = 0
+  minOrderAmountInput.value = 0
+  maxOrderAmountInput.value = 0
+  minSalesAmountInput.value = 0
+  maxSalesAmountInput.value = 0
 
   setMessage('Successfully removed', 'smipt-success-message')
 }
@@ -90,10 +87,10 @@ const createSection = () => {
 
   const panel = createElementFromJson(LISTING_ELEMENTS)
 
-  const minOrderAmountInput = panel.querySelector('#smipt-minOrderAmount')
-  const maxOrderAmountInput = panel.querySelector('#smipt-maxOrderAmount')
-  const minSalesAmountInput = panel.querySelector('#smipt-minSalesAmount')
-  const maxSalesAmountInput = panel.querySelector('#smipt-maxSalesAmount')
+  minOrderAmountInput = panel.querySelector('#smipt-minOrderAmount')
+  maxOrderAmountInput = panel.querySelector('#smipt-maxOrderAmount')
+  minSalesAmountInput = panel.querySelector('#smipt-minSalesAmount')
+  maxSalesAmountInput = panel.querySelector('#smipt-maxSalesAmount')
   const saveButton = panel.querySelector('#smipt-save-button')
   const removeButton = panel.querySelector('#smipt-remove-button')
 
@@ -129,13 +126,14 @@ const start = async () => {
     return
   }
 
+  const urlObject = new URL(window.location.href)
+  const { hash, pathname } = urlObject
+
   currentAppName = document.querySelector('#largeiteminfo_game_name')
     .textContent
   // eslint-disable-next-line prefer-destructuring
   currentItemId = matches[1]
-  const urlParts = new URL(window.location.href).pathname
-    .split('/')
-    .filter(i => i)
+  const urlParts = pathname.split('/').filter(i => i)
   const listingsIndex = urlParts.indexOf('listings')
   currentAppId = urlParts[listingsIndex + 1]
   currentItemName = decodeURIComponent(urlParts[listingsIndex + 2])
@@ -146,6 +144,17 @@ const start = async () => {
   })
   currentItem = item
   createSection()
+  await delay(500)
+  if (hash === '#smipt') {
+    const section = document.querySelector('#smipt-section')
+    if (!section) {
+      return
+    }
+    section.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    })
+  }
 }
 
 start()
