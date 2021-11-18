@@ -86,7 +86,6 @@ export default {
     this.getData()
     const that = this
     await browser.storage.local.onChanged.addListener(changes => {
-      console.log(changes)
       if (changes.notificationLength) {
         that.getNotifications()
       }
@@ -102,7 +101,6 @@ export default {
     },
     async getTrackings() {
       const { trackList } = await browser.storage.local.get({ trackList: [] })
-      console.log(trackList)
       const trackListGrouped = trackList.reduce((acc, item) => {
         const { appid } = item
         if (!acc[appid]) {
@@ -117,13 +115,10 @@ export default {
       this.trackings = trackings
     },
     async getNotifications() {
-      console.log('getNotifications')
       const { notifications } = await browser.runtime.sendMessage({
         type: GET_NOTIFICATIONS
       })
-      console.log(notifications)
       this.notifications = notifications
-      console.log(this.notifications)
     },
     async removeNotification(notification) {
       this.notifications = this.notifications.filter(

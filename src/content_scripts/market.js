@@ -38,7 +38,6 @@ const extratData = async () => {
 const init = async () => {
   const url = new URL(window.location.href)
   const type = url.searchParams.get('smipt')
-  console.log({ type })
   if (!type) {
     return
   }
