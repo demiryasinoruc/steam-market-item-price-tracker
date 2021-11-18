@@ -52,7 +52,7 @@ const saveHandler = async () => {
     id: currentItem.id
   }
   if (minOrderAmount + maxOrderAmount + minSalesAmount + maxSalesAmount === 0) {
-    setMessage('You must enter valid amounts ', 'smipt-error-message')
+    setMessage('You must enter valid amounts', 'smipt-error-message')
     return
   }
   await browser.runtime.sendMessage({
