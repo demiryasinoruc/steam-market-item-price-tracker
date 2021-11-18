@@ -28,7 +28,7 @@
           <table class="table table-bordered table-sm">
             <thead>
               <tr>
-                <th>App</th>
+                <th class="app-column">App</th>
                 <th>Name</th>
                 <th>Min. Buy Order </th>
                 <th>Max. Buy Order</th>
@@ -189,7 +189,12 @@ export default {
 
 <style>
 @import url('/assets/fonts/font-awesome/css/font-awesome.min.css');
+
 td {
   line-height: 34px;
+}
+
+th.app-column {
+  min-width: 275px;
 }
 </style>

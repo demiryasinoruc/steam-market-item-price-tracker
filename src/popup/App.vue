@@ -1,9 +1,6 @@
 <template>
   <div class="container-fluid p-3 border border-danger">
-    <div
-      v-if="trackingList.length > 0"
-      class="row "
-    >
+    <div class="row ">
       <div class="col">
         <h4>
           Tracking List ({{ trackings.length }})
