@@ -6,6 +6,10 @@ import { createElementFromJson } from '../common/utility'
 import LISTING_ELEMENTS from '../data/listing.elements.json'
 
 let currentItem = null
+let currentItemId = null
+let currentItemName = null
+let currentAppName = null
+let currentAppId = null
 
 const inputOnBlur = e => {
   const value = parseFloat(e.target.value)
@@ -49,12 +53,16 @@ const saveHandler = async () => {
     maxOrderAmount,
     minSalesAmount,
     maxSalesAmount,
-    id: currentItem.id
+    id: currentItemId,
+    name: currentItemName,
+    appid: currentAppId,
+    appname: currentAppName
   }
   if (minOrderAmount + maxOrderAmount + minSalesAmount + maxSalesAmount === 0) {
     setMessage('You must enter valid amounts', 'smipt-error-message')
     return
   }
+
   await browser.runtime.sendMessage({
     type: SET_ITEM,
     item
@@ -66,8 +74,13 @@ const saveHandler = async () => {
 const removeHandler = async () => {
   await browser.runtime.sendMessage({
     type: REMOVE_ITEM,
-    id: currentItem.id
+    id: currentItemId
   })
+  document.querySelector('#smipt-minOrderAmount').value = 0
+  document.querySelector('#smipt-maxOrderAmount').value = 0
+  document.querySelector('#smipt-minSalesAmount').value = 0
+  document.querySelector('#smipt-maxSalesAmount').value = 0
+
   setMessage('Successfully removed', 'smipt-success-message')
 }
 
@@ -115,9 +128,21 @@ const start = async () => {
     console.error('No matches found')
     return
   }
+
+  currentAppName = document.querySelector('#largeiteminfo_game_name')
+    .textContent
+  // eslint-disable-next-line prefer-destructuring
+  currentItemId = matches[1]
+  const urlParts = new URL(window.location.href).pathname
+    .split('/')
+    .filter(i => i)
+  const listingsIndex = urlParts.indexOf('listings')
+  currentAppId = urlParts[listingsIndex + 1]
+  currentItemName = decodeURIComponent(urlParts[listingsIndex + 2])
+
   const { item } = await browser.runtime.sendMessage({
     type: GET_ITEM,
-    id: matches[1]
+    id: currentItemId
   })
   currentItem = item
   createSection()

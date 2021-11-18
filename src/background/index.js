@@ -4,16 +4,30 @@ import KEYS from '../common/keys'
 import { NOTIFICATION_BASE, INSTALLATION_URL } from '../common/constants'
 import { createGuid } from '../common/utility'
 
-let trackList = []
+let trackListData = []
 let notifications = []
 
-let user = null
+let userData = null
 let settings = { interval: 8, logLength: 20, logData: false }
 
 let currentIteration = 0
 let trackingIteration = 0
 
 // ##### Methods
+
+const getTrackList = async () => {
+  const { trackList } = await browser.storage.local.get({
+    trackList: []
+  })
+  trackListData = trackList
+}
+
+const getUser = async () => {
+  const { user } = await browser.storage.local.get({
+    user: null
+  })
+  userData = user
+}
 
 const getSettings = () => {
   return new Promise(async resolve => {
@@ -23,10 +37,8 @@ const getSettings = () => {
       logLength: 20,
       status: true
     })
-    ;({ user, trackList } = await browser.storage.local.get({
-      user: null,
-      trackList: []
-    }))
+    await getTrackList()
+    await getUser()
     resolve()
   })
 }
@@ -130,10 +142,10 @@ const checkDiff = (data, item) => {
 }
 
 const readData = async iteration => {
-  const item = trackList[iteration]
+  const item = trackListData[iteration]
   const orderHistogramUrl = `https://steamcommunity.com/market/itemordershistogram?country=${
-    user.country
-  }&language=${user.language}&currency=${user.currency}&item_nameid=${
+    userData.country
+  }&language=${userData.language}&currency=${userData.currency}&item_nameid=${
     item.id
   }&two_factor=0&norender=1`
   const steamResponse = await fetch(orderHistogramUrl)
@@ -154,7 +166,7 @@ const start = async () => {
 
   setInterval(() => {
     // return if status is false or user not set or trackList is empty
-    if (!settings.status || !user || !trackList.length) {
+    if (!settings.status || !userData || !trackListData.length) {
       return
     }
 
@@ -165,7 +177,7 @@ const start = async () => {
       // reset current iteration
       currentIteration = 1
     }
-    if (trackingIteration++ >= trackList.length) {
+    if (trackingIteration++ >= trackListData.length) {
       trackingIteration = 1
     }
     readData(trackingIteration - 1)
@@ -202,8 +214,8 @@ const onRuntimeMessageHandler = (request, sender) => {
             wallet: { currency, country }
           }
         } = request
-        user = { language, currency, country }
-        await browser.storage.local.set({ user })
+        userData = { language, currency, country }
+        await browser.storage.local.set({ user: userData })
         browser.tabs.remove(sender.tab.id)
         resolve()
       })
@@ -211,7 +223,6 @@ const onRuntimeMessageHandler = (request, sender) => {
     case KEYS.REMOVE_NOTIFICATION: {
       return new Promise(async resolve => {
         const { notification } = request
-        console.log(notification)
         notifications = notifications.filter(
           n => n.notificationId !== notification.notificationId
         )
@@ -230,23 +241,39 @@ const onRuntimeMessageHandler = (request, sender) => {
         resolve({ notifications })
       })
     }
+    case KEYS.REMOVE_ITEM: {
+      return new Promise(async resolve => {
+        const { id } = request
+        trackListData = trackListData.filter(i => i.id !== id)
+        await browser.storage.local.set({ trackList: trackListData })
+        resolve()
+      })
+    }
     case KEYS.GET_ITEM: {
       return new Promise(async resolve => {
         const { id } = request
-        resolve({ item: trackList.find(i => i.id === id) })
+        resolve({ item: trackListData.find(i => i.id === id) })
       })
     }
     case KEYS.SET_ITEM: {
       return new Promise(async resolve => {
         const { item } = request
-        const currentItem = trackList.find(i => i.id === item.id)
-        if (currentItem) {
-          currentItem.minOrderAmount = item.minOrderAmount
-          currentItem.maxOrderAmount = item.maxOrderAmount
-          currentItem.minSalesAmount = item.minSalesAmount
-          currentItem.maxSalesAmount = item.maxSalesAmount
+        let currentItem = trackListData.find(i => i.id === item.id)
+        if (!currentItem) {
+          currentItem = item
+          trackListData.push(currentItem)
         }
-        await browser.storage.local.set({ trackList })
+        currentItem.minOrderAmount = item.minOrderAmount
+        currentItem.maxOrderAmount = item.maxOrderAmount
+        currentItem.minSalesAmount = item.minSalesAmount
+        currentItem.maxSalesAmount = item.maxSalesAmount
+        await browser.storage.local.set({ trackList: trackListData })
+        resolve()
+      })
+    }
+    case KEYS.DATA_UPDATED: {
+      return new Promise(async resolve => {
+        getTrackList()
         resolve()
       })
     }
