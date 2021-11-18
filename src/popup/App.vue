@@ -1,58 +1,83 @@
 <template>
-  <div class="container-fluid p-2 border border-danger">
-    <div class="row p-0 m-0">
-      <button
-        class="btn btn-danger col"
-        @click="openPage(installationUrl)"
-      >
-        Start Installation
-      </button>
-      <button
-        class="btn btn-primary col"
-        @click="openPage('list.html')"
-      >
-        Open Tracking List Page
-      </button>
-    </div>
-    <div class="row mt-3">
+  <div class="container-fluid p-3 border border-danger">
+    <div
+      v-if="trackingList.length > 0"
+      class="row "
+    >
       <div class="col">
-        <div
-          v-for="tracking in trackingList"
-          :key="tracking.appid"
-          class="badge badge-primary"
+        <h4>
+          Tracking List ({{ trackings.length }})
+          <button
+            class="btn btn-warning btn-sm float-right ml-2"
+            title="Open Settings"
+            @click="openPage('options.html')"
+          >
+            <i class="fa fa-cog"></i>
+          </button>
+          <button
+            class="btn btn-primary btn-sm float-right"
+            title="Open Tracking List"
+            @click="openPage('list.html')"
+          >
+            <i class="fa fa-list"></i>
+          </button>
+        </h4>
+        <ul
+          v-if="trackings.length > 0"
+          class="list-group"
         >
-          <span>{{ tracking.appname }} ({{ tracking.count }})</span>
+          <li
+            v-for="tracking in trackingList"
+            :key="tracking.appid"
+            class="list-group-item"
+          >
+            <span>
+              {{ tracking.appname }}
+            </span>
+            <span class="badge badge-danger float-right">
+              {{ tracking.count }} item(s)
+            </span>
+          </li>
+        </ul>
+        <div
+          v-else
+          class="alert alert-info"
+        >
+          <i class="fa fa-info-circle"></i>
+          Your tracking list is empty.
         </div>
       </div>
     </div>
-    <div
-      v-if="notifications.length > 0"
-      class="row"
-    >
+    <div class="row">
       <div class="col-sm-12">
         <h4 class="mt-3">Notifications ({{ notifications.length }})</h4>
         <!-- create bootstrap unstyled list -->
-        <ul class="list-group">
-          <li
-            v-for="(notification,index) in notificationList"
-            :key="index"
-            class="list-group-item p-1 mb-2"
+        <div
+          v-for="(notification,index) in notificationList"
+          :key="index"
+          class="d-flex justify-content-between border border-info mt-2"
+        >
+          <a
+            class="btn btn-link"
+            target="_blank"
+            :href="`https://steamcommunity.com/market/listings/${notification.item.appid}/${notification.item.name}#smipt`"
           >
-            <a
-              class="btn btn-link"
-              target="_blank"
-              :href="`https://steamcommunity.com/market/listings/${notification.item.appid}/${notification.item.name}#smipt`"
-            >
-              {{ notification.item.name }}
-            </a>
-            <button
-              class="btn btn-info btn-sm float-right"
-              @click="removeNotification(notification)"
-            >
-              <i class="fa fa-times"></i>
-            </button>
-          </li>
-        </ul>
+            {{ notification.item.name }}
+          </a>
+          <button
+            class="btn btn-info"
+            @click="removeNotification(notification)"
+          >
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+        <div
+          v-show="notifications.length === 0"
+          class="alert alert-info"
+        >
+          <i class="fa fa-info-circle"></i>
+          No new notifications.
+        </div>
       </div>
     </div>
   </div>
@@ -102,15 +127,15 @@ export default {
     async getTrackings() {
       const { trackList } = await browser.storage.local.get({ trackList: [] })
       const trackListGrouped = trackList.reduce((acc, item) => {
-        const { appid } = item
-        if (!acc[appid]) {
-          acc[appid] = []
+        const { appname } = item
+        if (!acc[appname]) {
+          acc[appname] = []
         }
-        acc[appid].push(item)
+        acc[appname].push(item)
         return acc
       }, {})
-      const trackings = Object.keys(trackListGrouped).map(appid => {
-        return { appid, count: trackListGrouped[appid].length }
+      const trackings = Object.keys(trackListGrouped).map(appname => {
+        return { appname, count: trackListGrouped[appname].length }
       })
       this.trackings = trackings
     },
@@ -124,6 +149,7 @@ export default {
       this.notifications = this.notifications.filter(
         item => item.name !== notification.name
       )
+      console.log(this.notifications)
       await browser.runtime.sendMessage({
         type: REMOVE_NOTIFICATION,
         notification
@@ -136,6 +162,6 @@ export default {
 <style>
 @import url('/assets/fonts/font-awesome/css/font-awesome.min.css');
 body {
-  min-width: 450px;
+  min-width: 600px;
 }
 </style>
