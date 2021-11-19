@@ -95,7 +95,10 @@
                   </select>
                 </div>
               </div>
-              <div class="form-group row mt-3">
+              <div
+                v-if="false"
+                class="form-group row mt-3"
+              >
                 <label
                   for="log-data"
                   class="col-form-label col-5"
@@ -113,7 +116,10 @@
                   />
                 </div>
               </div>
-              <div class="form-group row">
+              <div
+                v-if="false"
+                class="form-group row"
+              >
                 <label
                   for="logCount"
                   class="col-form-label col-5"
