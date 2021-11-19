@@ -267,6 +267,21 @@ const onRuntimeMessageHandler = (request, sender) => {
         currentItem.maxOrderAmount = item.maxOrderAmount
         currentItem.minSalesAmount = item.minSalesAmount
         currentItem.maxSalesAmount = item.maxSalesAmount
+        const currentNotificationIndex = notifications.findIndex(
+          n => n.item.id === item.id
+        )
+        if (currentNotificationIndex !== -1) {
+          const { notificationId } = notifications[currentNotificationIndex]
+          await browser.notifications.clear(notificationId)
+          notifications.splice(currentNotificationIndex, 1)
+          await browser.storage.local.set({
+            notificationLength: notifications.length
+          })
+          await browser.browserAction.setBadgeText({
+            text: notifications.length.toString()
+          })
+        }
+
         await browser.storage.local.set({ trackList: trackListData })
         resolve()
       })
