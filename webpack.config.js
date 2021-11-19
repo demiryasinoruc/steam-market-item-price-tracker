@@ -54,18 +54,18 @@ module.exports = env => {
         },
         {
           test: /\.scss$/,
-          use: [
-            isDevMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
-            'css-loader',
-            'sass-loader'
-          ]
+          use: ['vue-style-loader', 'css-loader', 'sass-loader']
         },
         {
           test: /\.sass$/,
           use: [
-            isDevMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
+            'vue-style-loader',
             'css-loader',
-            'sass-loader?indentedSyntax'
+            {
+              loader: 'sass-loader',
+              // eslint-disable-next-line
+              options: { implementation: require('sass') }
+            }
           ]
         },
         {
@@ -78,10 +78,7 @@ module.exports = env => {
         },
         {
           test: /\.css$/,
-          use: [
-            isDevMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
-            'css-loader'
-          ]
+          use: ['vue-style-loader', 'css-loader']
         },
         {
           test: /\.(png|jpg|gif|svg)$/,
