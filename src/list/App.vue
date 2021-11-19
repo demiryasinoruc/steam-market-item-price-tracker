@@ -54,7 +54,7 @@
                 <td>
                   <a
                     target="_blank"
-                    class="btn btn-link"
+                    class="btn btn-link item-name"
                     :href="`https://steamcommunity.com/market/listings/${row.appid}/${row.name}#smipt`"
                   >
                     {{ row.name }}
@@ -196,5 +196,15 @@ td {
 
 th.app-column {
   min-width: 275px;
+}
+
+a.item-name {
+  max-width: 500px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-align: left;
 }
 </style>
