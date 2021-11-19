@@ -8,7 +8,7 @@ let trackListData = []
 let notifications = []
 
 let userData = null
-let settings = { interval: 8, logLength: 20, logData: false }
+let settings = { interval: 8, logLength: 20, logData: false, status: true }
 
 let currentIteration = 0
 let trackingIteration = 0
@@ -260,6 +260,19 @@ const onRuntimeMessageHandler = (request, sender) => {
     case KEYS.GET_NOTIFICATIONS: {
       return new Promise(async resolve => {
         resolve({ notifications })
+      })
+    }
+    case KEYS.GET_STATUS: {
+      return new Promise(async resolve => {
+        resolve({ status: settings.status })
+      })
+    }
+    case KEYS.SET_STATUS: {
+      return new Promise(async resolve => {
+        const { status } = request
+        settings.status = status
+        await browser.storage.local.set({ status })
+        resolve()
       })
     }
     case KEYS.REMOVE_ITEM: {

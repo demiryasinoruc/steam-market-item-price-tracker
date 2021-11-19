@@ -5,18 +5,34 @@
         <h4>
           Tracking List ({{ trackings.length }})
           <button
-            class="btn btn-warning btn-sm float-right ml-2"
+            class="btn btn-outline-info btn-sm float-right ml-2"
             title="Open Settings"
             @click="openPage('options.html')"
           >
             <i class="fa fa-cog"></i>
           </button>
           <button
-            class="btn btn-primary btn-sm float-right"
+            class="btn btn-outline-primary btn-sm float-right ml-2"
             title="Open Tracking List"
             @click="openPage('list.html')"
           >
             <i class="fa fa-list"></i>
+          </button>
+          <button
+            v-show="status"
+            class="btn btn-outline-success btn-sm float-right ml-2"
+            title="Pause"
+            @click="changeStatus(false)"
+          >
+            <i class="fa fa-pause"></i>
+          </button>
+          <button
+            v-show="!status"
+            class="btn btn-outline-warning btn-sm float-right"
+            title="Continue"
+            @click="changeStatus(true)"
+          >
+            <i class="fa fa-play"></i>
           </button>
         </h4>
         <ul
@@ -83,14 +99,15 @@
 <script>
 import browser from 'webextension-polyfill'
 import { INSTALLATION_URL } from '../common/constants'
-import { GET_NOTIFICATIONS, REMOVE_NOTIFICATION } from '../common/keys'
+import KEYS from '../common/keys'
 
 export default {
   data() {
     return {
       installationUrl: INSTALLATION_URL,
       notifications: [],
-      trackings: []
+      trackings: [],
+      status: false
     }
   },
   computed: {
@@ -118,6 +135,7 @@ export default {
       await browser.tabs.create({ url })
     },
     async getData() {
+      this.getStatus()
       this.getTrackings()
       this.getNotifications()
     },
@@ -138,16 +156,29 @@ export default {
     },
     async getNotifications() {
       const { notifications } = await browser.runtime.sendMessage({
-        type: GET_NOTIFICATIONS
+        type: KEYS.GET_NOTIFICATIONS
       })
       this.notifications = notifications
+    },
+    async getStatus() {
+      const { status } = await browser.runtime.sendMessage({
+        type: KEYS.GET_STATUS
+      })
+      this.status = status
+    },
+    async changeStatus(status) {
+      await browser.runtime.sendMessage({
+        type: KEYS.SET_STATUS,
+        status
+      })
+      this.getStatus()
     },
     async removeNotification(notification) {
       this.notifications = this.notifications.filter(
         item => item.name !== notification.name
       )
       await browser.runtime.sendMessage({
-        type: REMOVE_NOTIFICATION,
+        type: KEYS.REMOVE_NOTIFICATION,
         notification
       })
     },
