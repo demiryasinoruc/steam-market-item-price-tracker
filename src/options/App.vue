@@ -178,12 +178,17 @@ export default {
       maxLogLength: MAX_LOG_LENGTH,
       countries: COUNTRIES,
       currencies: CURENCIES,
-      languages: LANGUAGES
+      languages: LANGUAGES,
+      pageInitialized: false
     }
   },
   watch: {
     settings: {
       async handler(newSettings) {
+        if (!this.pageInitialized) {
+          this.pageInitialized = true
+          return
+        }
         const { interval, logData, language, country, currency } = newSettings
         let logLength = parseInt(newSettings.logLength)
         if (+!logLength || logLength < 0) {
@@ -197,6 +202,7 @@ export default {
         await browser.runtime.sendMessage({
           type: SETTINGS_UPDATED
         })
+        Vue.$toast.success('Data successfully saved!')
       },
       deep: true
     }
