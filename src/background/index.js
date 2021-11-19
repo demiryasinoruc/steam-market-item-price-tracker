@@ -7,8 +7,15 @@ import { createGuid } from '../common/utility'
 let trackListData = []
 let notifications = []
 
-let userData = null
-let settings = { interval: 8, logLength: 20, logData: false, status: true }
+let settings = {
+  interval: 8,
+  logLength: 20,
+  logData: false,
+  status: true,
+  language: 'english',
+  country: 'us',
+  currency: 1
+}
 
 let currentIteration = 0
 let trackingIteration = 0
@@ -22,23 +29,18 @@ const getTrackList = async () => {
   trackListData = trackList
 }
 
-const getUser = async () => {
-  const { user } = await browser.storage.local.get({
-    user: null
-  })
-  userData = user
-}
-
 const getSettings = () => {
   return new Promise(async resolve => {
     settings = await browser.storage.local.get({
       interval: 8,
       logData: false,
       logLength: 20,
-      status: true
+      status: true,
+      language: 'english',
+      country: 'us',
+      currency: 1
     })
     await getTrackList()
-    await getUser()
     resolve()
   })
 }
@@ -165,8 +167,8 @@ const checkDiff = (data, item) => {
 const readData = async iteration => {
   const item = trackListData[iteration]
   const orderHistogramUrl = `https://steamcommunity.com/market/itemordershistogram?country=${
-    userData.country
-  }&language=${userData.language}&currency=${userData.currency}&item_nameid=${
+    settings.country
+  }&language=${settings.language}&currency=${settings.currency}&item_nameid=${
     item.id
   }&two_factor=0&norender=1`
   const steamResponse = await fetch(orderHistogramUrl)
@@ -187,7 +189,7 @@ const start = async () => {
 
   setInterval(() => {
     // return if status is false or user not set or trackList is empty
-    if (!settings.status || !userData || !trackListData.length) {
+    if (!settings.status || !trackListData.length) {
       return
     }
 
@@ -235,8 +237,7 @@ const onRuntimeMessageHandler = (request, sender) => {
             wallet: { currency, country }
           }
         } = request
-        userData = { language, currency, country }
-        await browser.storage.local.set({ user: userData })
+        await browser.storage.local.set({ language, currency, country })
         browser.tabs.remove(sender.tab.id)
         resolve()
       })
@@ -323,6 +324,12 @@ const onRuntimeMessageHandler = (request, sender) => {
     case KEYS.DATA_UPDATED: {
       return new Promise(async resolve => {
         getTrackList()
+        resolve()
+      })
+    }
+    case KEYS.SETTINGS_UPDATED: {
+      return new Promise(async resolve => {
+        await getSettings()
         resolve()
       })
     }
