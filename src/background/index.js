@@ -311,8 +311,17 @@ const onNotificationClickedHandler = async notificationId => {
   const {
     item: { name, appid }
   } = notification
+  const encodedName = encodeURIComponent(name)
+  const url = `https://steamcommunity.com/market/listings/${appid}/${encodedName}`
+  const tabs = await browser.tabs.query({
+    url
+  })
+  if (tabs.length > 0) {
+    await browser.tabs.update(tabs[0].id, { active: true })
+    return
+  }
   await browser.tabs.create({
-    url: `https://steamcommunity.com/market/listings/${appid}/${name}#smipt`
+    url: `${url}#smipt`
   })
 }
 
