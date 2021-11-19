@@ -29,6 +29,7 @@
     "no-bitwise": "off",
     "no-console": "off",
     "no-multi-assign": "off",
+    "no-new": "off",
     "no-nested-ternary": "off",
     "no-plusplus": "off",
     "no-use-before-define": "off",
