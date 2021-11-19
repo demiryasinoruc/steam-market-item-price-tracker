@@ -144,6 +144,7 @@ export default {
     }
   },
   created() {
+    document.querySelector('title').text = 'Tracking List'
     this.getData()
   },
   methods: {
