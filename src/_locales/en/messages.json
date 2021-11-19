@@ -1,14 +1,10 @@
 {
   "extensionName": {
-    "description": "Extension name will be here",
+    "description": "Steam Market Item Price Tracker",
     "message": "Extension Name"
   },
   "extensionDescription": {
-    "description": "Extension description will be here",
+    "description": "Steam Market Item Price Tracker allows you to track market item sell/buy orders",
     "message": "Extension Description"
-  },
-  "languageCode": {
-    "description": "Language code will be here",
-    "message": "en"
   }
 }
