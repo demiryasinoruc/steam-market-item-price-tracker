@@ -1,10 +1,10 @@
 {
   "extensionName": {
-    "description": "Steam Market Item Price Tracker",
-    "message": "Extension Name"
+    "description": "Extension Name",
+    "message": "Steam Market Item Price Tracker"
   },
   "extensionDescription": {
-    "description": "Steam Market Item Price Tracker allows you to track market item sell/buy orders",
-    "message": "Extension Description"
+    "description": "Extension Description",
+    "message": "Steam Market Item Price Tracker allows you to track Steam Community Market item buy/sell orders."
   }
 }
