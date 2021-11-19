@@ -1,8 +1,8 @@
 <template>
-  <div class="container-fluid p-3 border border-danger">
+  <div class="container-fluid p-3 border">
     <div class="row ">
       <div class="col">
-        <h4>
+        <h5>
           Tracking List ({{ trackings.length }})
           <button
             class="btn btn-outline-info btn-sm float-right ml-2"
@@ -34,10 +34,10 @@
           >
             <i class="fa fa-play"></i>
           </button>
-        </h4>
+        </h5>
         <ul
           v-if="trackings.length > 0"
-          class="list-group"
+          class="list-group mt-3"
         >
           <li
             v-for="tracking in trackingList"
@@ -63,12 +63,12 @@
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <h4 class="mt-3">Notifications ({{ notifications.length }})</h4>
+        <h5 class="mt-3">Notifications ({{ notifications.length }})</h5>
         <!-- create bootstrap unstyled list -->
         <div
           v-for="(notification,index) in notificationList"
           :key="index"
-          class="d-flex justify-content-between border border-info mt-2"
+          class="d-flex justify-content-between border mt-2"
         >
           <a
             class="btn btn-link"
@@ -78,7 +78,7 @@
             {{ notification.item.name }}
           </a>
           <button
-            class="btn btn-info"
+            class="btn btn"
             @click="removeNotification(notification)"
           >
             <i class="fa fa-times"></i>
