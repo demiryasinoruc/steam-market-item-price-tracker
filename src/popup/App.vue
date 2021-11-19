@@ -146,7 +146,6 @@ export default {
       this.notifications = this.notifications.filter(
         item => item.name !== notification.name
       )
-      console.log(this.notifications)
       await browser.runtime.sendMessage({
         type: REMOVE_NOTIFICATION,
         notification
