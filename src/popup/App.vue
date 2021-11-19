@@ -31,7 +31,7 @@
             <span>
               {{ tracking.appname }}
             </span>
-            <span class="badge badge-danger float-right">
+            <span class="badge badge-danger float-right mt-1">
               {{ tracking.count }} item(s)
             </span>
           </li>
@@ -158,7 +158,12 @@ export default {
 
 <style>
 @import url('/assets/fonts/font-awesome/css/font-awesome.min.css');
+
 body {
   min-width: 600px;
+}
+
+.list-group-item {
+  padding: 0.5rem 0.75rem;
 }
 </style>
