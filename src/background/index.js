@@ -43,8 +43,21 @@ const getSettings = () => {
   })
 }
 
-const showNotification = async (notificationId, title, message) => {
-  await browser.notifications.create(notificationId, {
+const createUpdateNotification = async (
+  notificationId,
+  isNewNotificaiton,
+  title,
+  message
+) => {
+  if (isNewNotificaiton) {
+    await browser.notifications.create(notificationId, {
+      ...NOTIFICATION_BASE,
+      title,
+      message
+    })
+    return
+  }
+  await browser.notifications.update(notificationId, {
     ...NOTIFICATION_BASE,
     title,
     message
@@ -52,6 +65,7 @@ const showNotification = async (notificationId, title, message) => {
 }
 
 const addNotification = async (notificationId, item, title, message) => {
+  let currentNotificationId = notificationId
   const existNotificationIndex = notifications.findIndex(
     n => n.item.name === item.name
   )
@@ -66,6 +80,7 @@ const addNotification = async (notificationId, item, title, message) => {
         notification.item.maxSalesAmount === item.maxSalesAmount
       )
     ) {
+      currentNotificationId = notification.notificationId
       notifications.splice(existNotificationIndex, 1)
       showDesktopNotification = true
     }
@@ -74,10 +89,16 @@ const addNotification = async (notificationId, item, title, message) => {
   }
   if (showDesktopNotification) {
     notifications.push({
-      notificationId,
+      notificationId: currentNotificationId,
       item
     })
-    showNotification(notificationId, title, message)
+    const isNewNotification = notificationId === currentNotificationId
+    createUpdateNotification(
+      currentNotificationId,
+      isNewNotification,
+      `${item.name} - ${title}`,
+      message
+    )
     let { notificationLength } = await browser.storage.local.get({
       notificationLength: 0
     })

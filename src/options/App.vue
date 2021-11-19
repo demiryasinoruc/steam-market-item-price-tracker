@@ -48,7 +48,10 @@
                 />
               </div>
               <div class="mb-2">
-                <button class="btn btn-block btn-info" @click="save">
+                <button
+                  class="btn btn-block btn-info"
+                  @click="save"
+                >
                   Kaydet
                 </button>
               </div>
@@ -66,10 +69,7 @@ import browser from 'webextension-polyfill'
 export default {
   data() {
     return {
-      testTextbox: 'Example text',
-      testTextArea: 'Example Value',
-      selectedValue: 'Example Selected',
-      selectValues: ['Example Selected', 'Example Unselected']
+      settings: {}
     }
   },
   created() {
@@ -81,7 +81,7 @@ export default {
   methods: {
     async init() {
       const { settings } = await browser.storage.local.get({ settings: {} })
-      console.log({ settings })
+      this.settings = settings
     },
     async save() {
       await browser.storage.local.set({ settings: {} })
