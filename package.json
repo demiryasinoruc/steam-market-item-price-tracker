@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "steam-market-item-price-tracker",
   "description": "steam-market-item-price-tracker",
   "author": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "webpack --mode=development --env.NODE_ENV=development --port=5000 --progress --hide-modules --hot --watch",
-    "build": "npm run pack && npm run set-production && npm run remove-evals && npm run zip",
+    "build": "npm run pack && npm run remove-evals && npm run zip",
     "lint": "eslint --ext .js,.vue --fix ./src",
     "pack": "webpack --mode=production --env.NODE_ENV=production --progress --hide-modules",
     "remove-evals": "node scripts/remove-evals.js",
