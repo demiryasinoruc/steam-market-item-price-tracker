@@ -63,7 +63,7 @@ You may contribute to this project by opening an [issue](issues) to file a bug r
 
 ## Privacy Policy
 
-This extension requires permissions for "storage" and "notifications"
+This extension requires permissions for "notifications", "storage", "unlimitedStorage" and "tabs"
 
 #
 
