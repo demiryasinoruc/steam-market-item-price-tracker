@@ -1,4 +1,4 @@
-# Cloud Game Lister
+# Steam Market Item Price
 
 [![GitHub license](https://img.shields.io/badge/license-APACHE-blue.svg)](https://github.com/demiryasinoruc/steam-market-item-price-tracker/blob/master/LICENSE)
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/d/koclieckfnkkiiaopankjmiigmfppbbo.svg)](https://chrome.google.com/webstore/detail/steam-market-item-price-t/koclieckfnkkiiaopankjmiigmfppbbo)
