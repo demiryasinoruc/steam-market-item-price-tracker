@@ -237,8 +237,8 @@ const onRuntimeMessageHandler = (request, sender) => {
             wallet: { currency, country }
           }
         } = request
-        await getSettings()
         await browser.storage.local.set({ language, currency, country })
+        await getSettings()
         await browser.tabs.remove(sender.tab.id)
         resolve()
       })
