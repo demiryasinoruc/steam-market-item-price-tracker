@@ -1,4 +1,4 @@
-## v1.0.1
+## v1.0.2 (Under Review)
 
 ### Added:
 
@@ -13,6 +13,6 @@
 
 - Extension description
 
-## 1.0.0 (Under Review)
+## 1.0.0 (Live)
 
 - Initial release
