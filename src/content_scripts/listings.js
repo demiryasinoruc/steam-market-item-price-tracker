@@ -91,7 +91,6 @@ const removeHandler = async () => {
 const createSection = () => {
   const item = currentItem || {}
   const myListings = document.querySelector('#myListings')
-  console.log(translations)
   const panel = createElementFromJson(LISTING_ELEMENTS, translations)
 
   minOrderAmountInput = panel.querySelector('#smipt-minOrderAmount')
