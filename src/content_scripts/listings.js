@@ -117,12 +117,10 @@ const start = async () => {
   )
 
   if (!script) {
-    console.error('No script found')
     return
   }
   const matches = script.textContent.match(START_SERACH_PATTERN)
   if (matches.length < 2) {
-    console.error('No matches found')
     return
   }
 
