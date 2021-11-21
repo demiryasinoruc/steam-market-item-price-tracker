@@ -232,12 +232,22 @@ const onRuntimeMessageHandler = (request, sender) => {
     case KEYS.INSTALLATION_COMPLETED: {
       return new Promise(async resolve => {
         const {
-          user: {
-            language,
-            wallet: { currency, country }
-          }
+          user: { language, wallet }
         } = request
+        if (!wallet) {
+          await browser.notifications.create('walletNotFound', {
+            ...NOTIFICATION_BASE,
+            title: 'Wallet not found',
+            message:
+              'Create your steam wallet or logged in to steamcommunity.com'
+          })
+
+          resolve({ error: 'Wallet not found' })
+          return
+        }
+        const { currency, country } = wallet
         await browser.storage.local.set({ language, currency, country })
+        console.log({ language, currency, country })
         await getSettings()
         await browser.tabs.remove(sender.tab.id)
         resolve()
