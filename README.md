@@ -9,10 +9,14 @@
 
 ## Steam Market Item Price Tracker allows you to track [Steam Community Market](https://steamcommunity.com/market/) item buy/sell orders.
 
+#
+
 ## Other Extensions
 
 - [Steam Market History Helper](https://chrome.google.com/webstore/detail/steam-market-history-help/bmbnngnjoagodaidjcmoiadioinjhhfb)
 - [Cloud Gaming Lister](https://chrome.google.com/webstore/detail/cloud-gaming-lister/cpmaennmoijiboghaekpledlgbojhdml) (open source)
+
+#
 
 ## Setup
 
@@ -66,6 +70,13 @@ You may contribute to this project by opening an [issue](issues) to file a bug r
 This extension requires permissions for "notifications", "storage", "unlimitedStorage" and "tabs"
 
 #
+
+## Up Next
+
+- Multi-language for extension interface
+- Price history record
+- steamcommunity.com search page integration
+- steamcommunity.com inventory page integration
 
 ## Contributors ✨
 
