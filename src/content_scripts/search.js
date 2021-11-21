@@ -96,7 +96,9 @@ const handleRows = async () => {
       href: { value: url }
     } = link.attributes
     const urlParts = url.split('/')
-    const marketHashName = decodeURIComponent(urlParts[urlParts.length - 1])
+    const nameWithFilter = urlParts[urlParts.length - 1]
+    const [onlyName] = nameWithFilter.split('?filter')
+    const marketHashName = decodeURIComponent(onlyName)
     names.push(marketHashName)
   }
   const response = await browser.runtime.sendMessage({
