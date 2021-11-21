@@ -110,7 +110,7 @@ const createSection = () => {
   myListings.parentNode.insertBefore(panel, myListings)
 }
 
-const start = async () => {
+const init = async () => {
   const START_SERACH_PATTERN = /Market_LoadOrderSpread\( (\d+) \);/m
   const script = Array.from(document.querySelectorAll('script')).find(i =>
     i.textContent.match(START_SERACH_PATTERN)
@@ -155,4 +155,4 @@ const start = async () => {
   }
 }
 
-start()
+init()
