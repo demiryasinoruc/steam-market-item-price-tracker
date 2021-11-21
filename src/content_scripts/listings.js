@@ -10,6 +10,8 @@ import { createElementFromJson, delay } from '../common/utility'
 
 import LISTING_ELEMENTS from '../data/listing.elements.json'
 
+console.log('%cSteam Market Item Price Tracker worked!!!', 'color: #299ddc')
+
 let currentItem = null
 let currentItemId = null
 let currentItemName = null

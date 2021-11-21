@@ -1,6 +1,8 @@
 import browser from 'webextension-polyfill'
 import { GET_ITEMS, GET_TRANSLATIONS } from '../common/keys'
 
+console.log('%cSteam Market Item Price Tracker worked!!!', 'color: #299ddc')
+
 let minBuyOrder = ''
 let maxBuyOrder = ''
 let minSellOrder = ''

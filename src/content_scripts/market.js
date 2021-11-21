@@ -1,6 +1,8 @@
 import browser from 'webextension-polyfill'
 import { INSTALLATION_COMPLETED } from '../common/keys'
 
+console.log('%cSteam Market Item Price Tracker worked!!!', 'color: #299ddc')
+
 const extratData = async () => {
   const contents = [].slice
     .call(document.body.getElementsByTagName('script'))
