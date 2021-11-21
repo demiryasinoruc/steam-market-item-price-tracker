@@ -73,9 +73,7 @@ This extension requires permissions for "notifications", "storage", "unlimitedSt
 
 ## Up Next
 
-- Multi-language for extension interface
 - Price history record
-- steamcommunity.com search page integration
 - steamcommunity.com inventory page integration
 
 ## Contributors ✨
