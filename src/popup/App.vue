@@ -70,13 +70,13 @@
           :key="index"
           class="d-flex justify-content-between border mt-2"
         >
-          <a
+          <button
             class="btn btn-link"
             target="_blank"
-            :href="`https://steamcommunity.com/market/listings/${notification.item.appid}/${notification.item.name}#smipt`"
+            @click="openListingPage(notification)"
           >
             {{ notification.item.name }}
-          </a>
+          </button>
           <button
             class="btn btn"
             @click="removeNotification(notification)"
@@ -182,6 +182,21 @@ export default {
         notification
       })
     },
+    async openListingPage(notification) {
+      const { name, appid } = notification.item
+      const encodedName = encodeURIComponent(name)
+      const url = `https://steamcommunity.com/market/listings/${appid}/${encodedName}`
+      const tabs = await browser.tabs.query({
+        url
+      })
+      if (tabs.length > 0) {
+        await browser.tabs.update(tabs[0].id, { active: true })
+        return
+      }
+      await browser.tabs.create({
+        url: `${url}#smipt`
+      })
+    }
   }
 }
 </script>
