@@ -30,7 +30,8 @@ module.exports = env => {
       list: './list/index.js',
       background: './background/index.js',
       'content_scripts/market': './content_scripts/market.js',
-      'content_scripts/listings': './content_scripts/listings.js'
+      'content_scripts/listings': './content_scripts/listings.js',
+      'content_scripts/search': './content_scripts/search.js'
     },
     output: {
       path: path.resolve(__dirname, './dist'),
@@ -161,7 +162,11 @@ module.exports = env => {
         port,
         reloadPage: true,
         entries: {
-          contentScript: ['content_scripts/market', 'content_scripts/listings'],
+          contentScript: [
+            'content_scripts/market',
+            'content_scripts/listings',
+            'content_scripts/search'
+          ],
           background: 'background',
           extensionPage: 'popup',
           list: 'list',
