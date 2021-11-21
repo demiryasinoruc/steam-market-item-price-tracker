@@ -29,7 +29,6 @@ module.exports = env => {
       popup: './popup/index.js',
       list: './list/index.js',
       background: './background/index.js',
-      'content_scripts/index': './content_scripts/index.js',
       'content_scripts/market': './content_scripts/market.js',
       'content_scripts/listings': './content_scripts/listings.js'
     },
@@ -162,11 +161,7 @@ module.exports = env => {
         port,
         reloadPage: true,
         entries: {
-          contentScript: [
-            'content_scripts/index',
-            'content_scripts/market',
-            'content_scripts/listings'
-          ],
+          contentScript: ['content_scripts/market', 'content_scripts/listings'],
           background: 'background',
           extensionPage: 'popup',
           list: 'list',

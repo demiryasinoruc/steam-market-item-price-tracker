@@ -9,7 +9,8 @@ const bundles = [
   'options.js',
   'popup.js',
   'list.js',
-  'content_scripts/index.js',
+  'content_scripts/market.js',
+  'content_scripts/listings.js'
 ]
 
 const evalRegexForProduction = /;([a-z])=function\(\){return this}\(\);try{\1=\1\|\|Function\("return this"\)\(\)\|\|\(0,eval\)\("this"\)}catch\(t\){"object"==typeof window&&\(\1=window\)}/g
