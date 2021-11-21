@@ -8,6 +8,8 @@
   "enterValidValues": "Please enter valid values",
   "successfullySaved": "Successfully saved",
   "successfullyRemoved": "Successfully removed",
+  "remove": "Remove",
+  "save": "Save",
   "openSettings": "Open settings",
   "openTrackingList": "Open tracking list",
   "pause": "Pause",

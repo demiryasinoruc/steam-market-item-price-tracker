@@ -8,6 +8,8 @@
   "enterValidValues": "Anna kelvolliset arvot",
   "successfullySaved": "Tallennettu onnistuneesti",
   "successfullyRemoved": "Poistettu onnistuneesti",
+  "remove": "Poista",
+  "save": "Tallentaa",
   "openSettings": "Avaa asetukset",
   "openTrackingList": "Avaa seurantaluettelo",
   "pause": "Tauko",

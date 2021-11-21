@@ -8,6 +8,8 @@
   "enterValidValues": "โปรดป้อนค่าที่ถูกต้อง",
   "successfullySaved": "บันทึกเรียบร้อยแล้ว",
   "successfullyRemoved": "ลบออกเรียบร้อยแล้ว",
+  "remove": "ลบ",
+  "save": "บันทึก",
   "openSettings": "เปิดการตั้งค่า",
   "openTrackingList": "เปิดรายการติดตาม",
   "pause": "หยุดชั่วคราว",

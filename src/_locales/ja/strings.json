@@ -8,6 +8,8 @@
   "enterValidValues": "有効な値を入力してください",
   "successfullySaved": "正常に保存されました",
   "successfullyRemoved": "削除されました",
+  "remove": "削除する",
+  "save": "保存する",
   "openSettings": "オープン設定",
   "openTrackingList": "オープントラッキングリスト",
   "pause": "一時停止",

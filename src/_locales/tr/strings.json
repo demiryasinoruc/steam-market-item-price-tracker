@@ -8,6 +8,8 @@
   "enterValidValues": "Geçerli tutarlar girmelisiniz",
   "successfullySaved": "Başarı ile kayıt edildi",
   "successfullyRemoved": "Başarı ile kaldırıldı",
+  "remove": "Kaldır",
+  "save": "Kaydet",
   "openSettings": "Ayarları aç",
   "openTrackingList": "İzleme listesini aç",
   "pause": "Duraklat",

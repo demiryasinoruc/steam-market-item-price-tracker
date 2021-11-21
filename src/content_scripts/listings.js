@@ -1,6 +1,11 @@
 import browser from 'webextension-polyfill'
 
-import { GET_ITEM, REMOVE_ITEM, SET_ITEM } from '../common/keys'
+import {
+  GET_ITEM,
+  GET_TRANSLATIONS,
+  REMOVE_ITEM,
+  SET_ITEM
+} from '../common/keys'
 import { createElementFromJson, delay } from '../common/utility'
 
 import LISTING_ELEMENTS from '../data/listing.elements.json'
@@ -15,6 +20,8 @@ let minOrderAmountInput = null
 let maxOrderAmountInput = null
 let minSalesAmountInput = null
 let maxSalesAmountInput = null
+
+let translations = {}
 
 const inputOnBlur = e => {
   const value = parseFloat(e.target.value)
@@ -84,8 +91,8 @@ const removeHandler = async () => {
 const createSection = () => {
   const item = currentItem || {}
   const myListings = document.querySelector('#myListings')
-
-  const panel = createElementFromJson(LISTING_ELEMENTS)
+  console.log(translations)
+  const panel = createElementFromJson(LISTING_ELEMENTS, translations)
 
   minOrderAmountInput = panel.querySelector('#smipt-minOrderAmount')
   maxOrderAmountInput = panel.querySelector('#smipt-maxOrderAmount')
@@ -123,6 +130,10 @@ const init = async () => {
   if (matches.length < 2) {
     return
   }
+
+  ;({ translations } = await browser.runtime.sendMessage({
+    type: GET_TRANSLATIONS
+  }))
 
   const urlObject = new URL(window.location.href)
   const { hash, pathname } = urlObject

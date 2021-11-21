@@ -8,6 +8,8 @@
   "enterValidValues": "S'il vous plaît entrer des valeurs valides",
   "successfullySaved": "Enregistré avec succès",
   "successfullyRemoved": "Supprimé avec succès",
+  "remove": "Supprimer",
+  "save": "sauvegarder",
   "openSettings": "Paramètres ouverts",
   "openTrackingList": "Liste de suivi ouverte",
   "pause": "Pause",

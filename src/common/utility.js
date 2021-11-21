@@ -1,5 +1,5 @@
-const createElementFromJson = json => {
-  const { tag, text, children, attributes } = json
+const createElementFromJson = (json, translations) => {
+  const { tag, text, translationKey, children, attributes } = json
   const element = document.createElement(tag)
   if (attributes) {
     Object.keys(attributes).forEach(key =>
@@ -8,9 +8,13 @@ const createElementFromJson = json => {
   }
   if (text) {
     element.innerText = text
+  } else if (translationKey) {
+    element.innerText = translations[translationKey]
   }
   if (children) {
-    children.forEach(child => element.appendChild(createElementFromJson(child)))
+    children.forEach(child =>
+      element.appendChild(createElementFromJson(child, translations))
+    )
   }
   return element
 }

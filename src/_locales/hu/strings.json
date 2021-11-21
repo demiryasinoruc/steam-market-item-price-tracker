@@ -8,6 +8,8 @@
   "enterValidValues": "Kérjük, adja meg az érvényes értékeket",
   "successfullySaved": "Sikeresen mentett",
   "successfullyRemoved": "Sikeresen eltávolították",
+  "remove": "Eltávolít",
+  "save": "Megment",
   "openSettings": "Nyisd meg a beállításokat",
   "openTrackingList": "Nyitott követési lista",
   "pause": "Szünet",

@@ -31,7 +31,7 @@
             {
               "tag": "label",
               "attributes": { "for": "smipt-minOrderAmount" },
-              "text": "Min. Order Amount"
+              "translationKey": "minBuyOrder"
             },
             {
               "tag": "input",
@@ -42,7 +42,7 @@
                 "min": "0",
                 "step": "0.1"
               },
-              "text": "Min. Order Amount"
+              "translationKey": "minBuyOrder"
             }
           ]
         },
@@ -53,7 +53,7 @@
             {
               "tag": "label",
               "attributes": { "for": "smipt-maxOrderAmount" },
-              "text": "Max. Order Amount"
+              "translationKey": "maxBuyOrder"
             },
             {
               "tag": "input",
@@ -64,7 +64,7 @@
                 "min": "0",
                 "step": "0.1"
               },
-              "text": "Max. Order Amount"
+              "translationKey": "maxBuyOrder"
             }
           ]
         }
@@ -81,7 +81,7 @@
             {
               "tag": "label",
               "attributes": { "for": "smipt-minSalesAmount" },
-              "text": "Min. Sales Amount"
+              "translationKey": "minSellOrder"
             },
             {
               "tag": "input",
@@ -92,7 +92,7 @@
                 "min": "0",
                 "step": "0.1"
               },
-              "text": "Min. Sales Amount"
+              "translationKey": "minSellOrder"
             }
           ]
         },
@@ -105,7 +105,7 @@
             {
               "tag": "label",
               "attributes": { "for": "smipt-maxSalesAmount" },
-              "text": "Max. Sales Amount"
+              "translationKey": "maxSellOrder"
             },
             {
               "tag": "input",
@@ -116,7 +116,7 @@
                 "min": "0",
                 "step": "0.1"
               },
-              "text": "Max. Sales Amount"
+              "translationKey": "maxSellOrder"
             }
           ]
         }
@@ -148,7 +148,7 @@
                   "children": [
                     {
                       "tag": "span",
-                      "text": "Save"
+                      "translationKey": "save"
                     }
                   ]
                 },
@@ -162,7 +162,7 @@
                   "children": [
                     {
                       "tag": "span",
-                      "text": "Remove"
+                      "translationKey": "remove"
                     }
                   ]
                 }
