@@ -33,5 +33,5 @@
   "minSellOrder": "Min. Ordre de vente",
   "maxSellOrder": "Max. Ordre de vente",
   "actions": "Actions",
-  "noData": "Aucune donnée dans le tableau."
+  "noData": "Aucune donnée dans la table."
 }
