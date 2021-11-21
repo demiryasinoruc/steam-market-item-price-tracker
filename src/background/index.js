@@ -315,6 +315,13 @@ const onRuntimeMessageHandler = (request, sender) => {
         resolve({ item: trackListData.find(i => i.id === id) })
       })
     }
+    case KEYS.GET_ITEMS: {
+      return new Promise(async resolve => {
+        const { names } = request
+        const items = trackListData.filter(i => names.includes(i.name))
+        resolve({ items })
+      })
+    }
     case KEYS.SET_ITEM: {
       return new Promise(async resolve => {
         const { item } = request

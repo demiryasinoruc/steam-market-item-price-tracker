@@ -22,6 +22,13 @@
     },
     {
       "all_frames": false,
+      "js": ["./content_scripts/search.js"],
+      "css": ["./assets/styles/search.css"],
+      "matches": ["*://steamcommunity.com/market/search*"],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
       "js": ["./content_scripts/market.js"],
       "matches": ["*://steamcommunity.com/market?smipt=*"],
       "run_at": "document_end"

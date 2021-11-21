@@ -1,0 +1,57 @@
+.smipt-hide .smipt-item-container {
+  transition: all 0.5s ease-in;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.smipt-item-container {
+  transition: all 0.5s ease-out;
+  opacity: 1;
+  height: auto;
+}
+
+.smipt-trigger {
+  transition: all 0.5s ease-out;
+  margin-right: 8px;
+  display: block;
+  width: 16px;
+  height: 16px;
+  float: right;
+  margin-top: -8px;
+  background-image: url('chrome-extension://__MSG_@@extension_id__/assets/icons/icon_16.png');
+  -webkit-transform: rotate(-360deg);
+  -moz-transform: rotate(-360deg);
+  transform: rotate(-360deg);
+}
+
+.smipt-hide .smipt-trigger {
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+
+.smipt-row {
+  width: 50%;
+  float: left;
+}
+
+.smipt-column {
+  margin: 12px 8px;
+}
+
+.smipt-column span {
+  display: block;
+  float: right;
+}
+
+.smipt-badge {
+  background-color: rgb(41 157 220);
+  color: #fff;
+  padding: 3px 5px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 5px;
+}
