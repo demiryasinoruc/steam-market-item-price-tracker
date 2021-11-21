@@ -1,0 +1,10 @@
+{
+  "extensionName": {
+    "description": "Eklenti adı buraya gelecek",
+    "message": "Steam Market Item Price Tracker"
+  },
+  "extensionDescription": {
+    "description": "Eklenti açıklaması buraya gelecek",
+    "message": "Steam Pazarı Öğe Fiyat Takibi, Steam Topluluk Pazarı öğe alım/satım siparişlerini izlemenizi sağlar."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "extensionName": {
+    "description": "Extension name will be here",
+    "message": "Steam Market Item Price Tracker"
+  },
+  "extensionDescription": {
+    "description": "Extension description will be here",
+    "message": "El artículo de Price Tracker del mercado de vapor le permite rastrear órdenes de compra / venta de artículos de mercado comunitario de vapor."
+  }
+}

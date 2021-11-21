@@ -2,7 +2,7 @@
   <div class="container-fluid p-3">
     <div class="card">
       <div class="card-header">
-        Tracking List
+        {{ translations.trackingList }}
       </div>
       <div class="card-body">
         <div class="row">
@@ -12,14 +12,14 @@
                 for="search"
                 class="col-sm-1 col-form-label"
               >
-                Search:
+                {{ translations.search }}:
               </label>
               <input
                 id="search"
                 v-model="search"
                 type="text"
                 class="form-control col"
-                placeholder="Search Item"
+                :placeholder="translations.searchPlaceholder"
               >
             </div>
           </div>
@@ -28,13 +28,13 @@
           <table class="table table-bordered table-sm">
             <thead>
               <tr>
-                <th class="app-column">App</th>
-                <th>Name</th>
-                <th>Min. Buy Order </th>
-                <th>Max. Buy Order</th>
-                <th>Min. Sell Order</th>
-                <th>Max. Sell Order</th>
-                <th>Actions</th>
+                <th class="app-column">{{ translations.app }}</th>
+                <th>{{ translations.name }}</th>
+                <th>{{ translations.minBuyOrder }}</th>
+                <th>{{ translations.maxBuyOrder }}</th>
+                <th>{{ translations.minSellOrder }}</th>
+                <th>{{ translations.maxSellOrder }}</th>
+                <th>{{ translations.actions }}</th>
               </tr>
             </thead>
             <tbody>
@@ -115,7 +115,7 @@
             v-show="data.length < 1"
             class="alert alert-info"
           >
-            No data in the table.
+            {{ translations.noData }}
           </div>
         </div>
       </div>
@@ -126,7 +126,8 @@
 <script>
 import Vue from 'vue'
 import browser from 'webextension-polyfill'
-import { DATA_UPDATED } from '../common/keys'
+import KEYS from '../common/keys'
+import TRANSLATIONS from '../_locales/en/strings.json'
 
 export default {
   data() {
@@ -135,7 +136,8 @@ export default {
       originalData: [],
       search: '',
       updateTimeOutHandler: -1,
-      removeTimeOutHandler: -1
+      removeTimeOutHandler: -1,
+      translations: TRANSLATIONS
     }
   },
   computed: {
@@ -143,11 +145,18 @@ export default {
       return this.data.filter(item => item.name.toUpperCase().indexOf(this.search.toUpperCase()) !== -1)
     }
   },
-  created() {
-    document.querySelector('title').text = 'Tracking List'
+  async created() {
+    await this.getTranslations()
+    document.querySelector('title').text = this.translations.trackingList
     this.getData()
   },
   methods: {
+    async getTranslations() {
+      const { translations } = await browser.runtime.sendMessage({
+        type: KEYS.GET_TRANSLATIONS
+      })
+      this.translations = translations
+    },
     async getData() {
       const { trackList } = await browser.storage.local.get({ trackList: [] })
       this.originalData = JSON.parse(JSON.stringify(trackList))
@@ -158,7 +167,7 @@ export default {
       const total = parseFloat(minOrderAmount) + parseFloat(maxOrderAmount) + parseFloat(minSalesAmount) + parseFloat(maxSalesAmount)
       if (!total || total <= 0) {
         this.data = [...JSON.parse(JSON.stringify(this.originalData))]
-        Vue.$toast.warning('Please enter valid values')
+        Vue.$toast.warning(this.translations.enterValidValues)
         return
       }
       this.saveData()
@@ -168,9 +177,9 @@ export default {
       this.removeTimeOutHandler = setTimeout(async () => {
         await browser.storage.local.set({ trackList: this.data })
         await browser.runtime.sendMessage({
-          type: DATA_UPDATED
+          type: KEYS.DATA_UPDATED
         })
-        Vue.$toast.success('Item succesfully removed!')
+        Vue.$toast.success(this.translations.successfullyRemoved)
       }, 500)
       this.data = this.data.filter(row => row.id !== itemId)
     },
@@ -179,9 +188,9 @@ export default {
       this.updateTimeOutHandler = setTimeout(async () => {
         await browser.storage.local.set({ trackList: this.data })
         await browser.runtime.sendMessage({
-          type: DATA_UPDATED
+          type: KEYS.DATA_UPDATED
         })
-        Vue.$toast.success('Data saved!')
+        Vue.$toast.success(this.translations.successfullySaved)
       }, 500)
     }
   }

@@ -2,18 +2,18 @@
   <div class="container-fluid p-3 border">
     <div class="row ">
       <div class="col">
-        <h5>
-          Tracking List ({{ trackings.length }})
+        <h5 class="mb-3">
+          {{ translations.trackingList }} ({{ trackings.length }})
           <button
             class="btn btn-outline-info btn-sm float-right ml-2"
-            title="Open Settings"
+            :title="translations.openSettings"
             @click="openPage('options.html')"
           >
             <i class="fa fa-cog"></i>
           </button>
           <button
             class="btn btn-outline-primary btn-sm float-right ml-2"
-            title="Open Tracking List"
+            :title="translations.openTrackingList"
             @click="openPage('list.html')"
           >
             <i class="fa fa-list"></i>
@@ -21,7 +21,7 @@
           <button
             v-show="status"
             class="btn btn-outline-success btn-sm float-right ml-2"
-            title="Pause"
+            :title="translations.pause"
             @click="changeStatus(false)"
           >
             <i class="fa fa-pause"></i>
@@ -29,7 +29,7 @@
           <button
             v-show="!status"
             class="btn btn-outline-warning btn-sm float-right"
-            title="Continue"
+            :title="translations.continue"
             @click="changeStatus(true)"
           >
             <i class="fa fa-play"></i>
@@ -48,7 +48,7 @@
               {{ tracking.appname }}
             </span>
             <span class="badge badge-danger float-right mt-1">
-              {{ tracking.count }} item(s)
+              {{ itemCountsMessage(tracking.count) }}
             </span>
           </li>
         </ul>
@@ -57,13 +57,15 @@
           class="alert alert-info"
         >
           <i class="fa fa-info-circle"></i>
-          Your tracking list is empty.
+          {{ translations.trackingListEmpty }}
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <h5 class="mt-3">Notifications ({{ notifications.length }})</h5>
+        <h5 class="mt-3">
+          {{ translations.notifications }} ({{ notifications.length }})
+        </h5>
         <!-- create bootstrap unstyled list -->
         <div
           v-for="(notification,index) in notificationList"
@@ -89,7 +91,7 @@
           class="alert alert-info"
         >
           <i class="fa fa-info-circle"></i>
-          No new notifications.
+          {{ translations.noNewNotification }}
         </div>
       </div>
     </div>
@@ -98,6 +100,7 @@
 
 <script>
 import browser from 'webextension-polyfill'
+import TRANSLATIONS from '../_locales/en/strings.json'
 import { INSTALLATION_URL } from '../common/constants'
 import KEYS from '../common/keys'
 
@@ -105,6 +108,7 @@ export default {
   data() {
     return {
       installationUrl: INSTALLATION_URL,
+      translations: TRANSLATIONS,
       notifications: [],
       trackings: [],
       status: false
@@ -122,6 +126,7 @@ export default {
     }
   },
   async created() {
+    this.getTranslations()
     this.getData()
     const that = this
     await browser.storage.local.onChanged.addListener(changes => {
@@ -131,6 +136,12 @@ export default {
     })
   },
   methods: {
+    async getTranslations() {
+      const { translations } = await browser.runtime.sendMessage({
+        type: KEYS.GET_TRANSLATIONS
+      })
+      this.translations = translations
+    },
     async openPage(url) {
       await browser.tabs.create({ url })
     },
@@ -196,6 +207,9 @@ export default {
       await browser.tabs.create({
         url: `${url}#smipt`
       })
+    },
+    itemCountsMessage(itemCount) {
+      return this.translations.itemCounts.replace('{{ITEMCOUNT}}', itemCount)
     }
   }
 }

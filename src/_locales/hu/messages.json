@@ -1,0 +1,10 @@
+{
+  "extensionName": {
+    "description": "Extension name will be here",
+    "message": "Steam Market Item Price Tracker"
+  },
+  "extensionDescription": {
+    "description": "Extension description will be here",
+    "message": "Steam Market Elem Ár Tracker Lehetővé teszi, hogy nyomon kövesse a Steam közösségi piaci elemet vásároljon / eladjon megrendeléseket."
+  }
+}

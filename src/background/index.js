@@ -3,9 +3,12 @@ import logger from '../common/logger-builder'
 import KEYS from '../common/keys'
 import { NOTIFICATION_BASE, INSTALLATION_URL } from '../common/constants'
 import { createGuid } from '../common/utility'
+import TRANSLATIONS from '../_locales/en/strings.json'
+import LANGUAGES from '../data/languages.json'
 
 let trackListData = []
 let notifications = []
+let translations = TRANSLATIONS
 
 let settings = {
   interval: 8,
@@ -29,6 +32,18 @@ const getTrackList = async () => {
   trackListData = trackList
 }
 
+const setLanguage = async () => {
+  let language = LANGUAGES.find(i => i.key === settings.language)
+  if (!language) {
+    language = LANGUAGES.find(i => i.fallback)
+  }
+  const { iso } = language
+
+  translations = await fetch(`_locales/${iso}/strings.json`).then(res =>
+    res.json()
+  )
+}
+
 const getSettings = () => {
   return new Promise(async resolve => {
     settings = await browser.storage.local.get({
@@ -40,6 +55,7 @@ const getSettings = () => {
       country: 'us',
       currency: 1
     })
+    await setLanguage()
     await getTrackList()
     resolve()
   })
@@ -123,13 +139,13 @@ const checkBuyOrderDiffs = (buyOrderGraph, item, notificationId) => {
   // check under min order amount
   if (minOrderAmount && price < minOrderAmount) {
     // buy orders going down
-    const title = 'Purchase order price decreased'
+    const title = translations.buyOrderDecreased
     addNotification(notificationId, item, title, message)
   }
   // check under max order amount
   if (maxOrderAmount && price > maxOrderAmount) {
     // buy orders going up
-    const title = 'Purchase order price increased'
+    const title = translations.buyOrderIncreased
     addNotification(notificationId, item, title, message)
   }
 }
@@ -143,13 +159,13 @@ const checkSellOrderDiffs = (sellOrderGraph, item, notificationId) => {
   // check under min order amount
   if (minSalesAmount && price < minSalesAmount) {
     // sell orders going down
-    const title = 'Sell order price decreased'
+    const title = translations.sellOrderDecreased
     addNotification(notificationId, item, title, message)
   }
   // check under max order amount
   if (maxSalesAmount && price > maxSalesAmount) {
     // sell orders going up
-    const title = 'Sell order price increased'
+    const title = translations.sellOrderIncreased
     addNotification(notificationId, item, title, message)
   }
 }
@@ -237,9 +253,8 @@ const onRuntimeMessageHandler = (request, sender) => {
         if (!wallet) {
           await browser.notifications.create('walletNotFound', {
             ...NOTIFICATION_BASE,
-            title: 'Wallet not found',
-            message:
-              'Create your steam wallet or logged in to steamcommunity.com'
+            title: translations.walletNotFound,
+            message: translations.walletNotFoundMessage
           })
 
           resolve({ error: 'Wallet not found' })
@@ -247,7 +262,6 @@ const onRuntimeMessageHandler = (request, sender) => {
         }
         const { currency, country } = wallet
         await browser.storage.local.set({ language, currency, country })
-        console.log({ language, currency, country })
         await getSettings()
         await browser.tabs.remove(sender.tab.id)
         resolve()
@@ -342,6 +356,11 @@ const onRuntimeMessageHandler = (request, sender) => {
       return new Promise(async resolve => {
         await getSettings()
         resolve()
+      })
+    }
+    case KEYS.GET_TRANSLATIONS: {
+      return new Promise(async resolve => {
+        resolve({ translations })
       })
     }
     default: {

@@ -1,11 +1,13 @@
 <template>
   <div class="flex-grow-1 d-flex flex-column h-100">
     <div class="container">
-      <div class="row justify-content-center mt-2 pt-2">
+      <div class="row justify-content-center mt-5 pt-2">
         <div class="col-lg-8">
           <div class="card">
             <div class="card-header">
-              <h3>Settings</h3>
+              <h3>
+                {{ translations.settings }}
+              </h3>
             </div>
             <div class="card-body">
               <div class="form-group row">
@@ -13,7 +15,7 @@
                   for="interval"
                   class="col-form-label col-5"
                 >
-                  Read items every {{ settings.interval }} second(s)
+                  {{ intervalMessage }}
                 </label>
                 <div class="col-7">
                   <input
@@ -31,7 +33,7 @@
                   for="language"
                   class="col-form-label col-5"
                 >
-                  Steam Language
+                  {{ translations.language }}
                 </label>
                 <div class="col-7">
                   <select
@@ -54,7 +56,7 @@
                   for="currency"
                   class="col-form-label col-5"
                 >
-                  Steam Currency
+                  {{ translations.currency }}
                 </label>
                 <div class="col-7">
                   <select
@@ -77,7 +79,7 @@
                   for="country"
                   class="col-form-label col-5"
                 >
-                  Steam Country
+                  {{ translations.country }}
                 </label>
                 <div class="col-7">
                   <select
@@ -103,7 +105,7 @@
                   for="log-data"
                   class="col-form-label col-5"
                 >
-                  Log Data
+                  {{ translations.savePriceData }}
                 </label>
                 <div class="col-7 text-right">
                   <toggle-button
@@ -124,7 +126,7 @@
                   for="logCount"
                   class="col-form-label col-5"
                 >
-                  Log Count
+                  {{ translations.dataCount }}
                 </label>
                 <div class="col-7">
                   <input
@@ -151,9 +153,10 @@
 import browser from 'webextension-polyfill'
 import Vue from 'vue'
 import ToggleButton from 'vue-js-toggle-button'
-import { SETTINGS_UPDATED } from '../common/keys'
+import KEYS from '../common/keys'
 
 
+import TRANSLATIONS from '../_locales/en/strings.json'
 import CURENCIES from '../data/currency.json'
 import LANGUAGES from '../data/languages.json'
 import COUNTRIES from '../data/country.json'
@@ -175,11 +178,18 @@ export default {
         country: 'us',
         currency: 1
       },
+      originalLanguage: '',
       maxLogLength: MAX_LOG_LENGTH,
       countries: COUNTRIES,
       currencies: CURENCIES,
       languages: LANGUAGES,
-      pageInitialized: false
+      pageInitialized: false,
+      translations: TRANSLATIONS
+    }
+  },
+  computed: {
+    intervalMessage() {
+      return this.translations.readItemsIntrerval.replace('{{SETTINGSINTERVAL}}', this.settings.interval)
     }
   },
   watch: {
@@ -200,20 +210,30 @@ export default {
         this.settings.logLength = logLength
         await browser.storage.local.set({ interval, logLength, logData, language, country, currency })
         await browser.runtime.sendMessage({
-          type: SETTINGS_UPDATED
+          type: KEYS.SETTINGS_UPDATED
         })
-        Vue.$toast.success('Data successfully saved!')
+        Vue.$toast.success(this.translations.successfullySaved)
+        if (this.originalLanguage !== language) {
+          window.location.reload()
+        }
       },
       deep: true
     }
   },
-  created() {
-    document.querySelector('title').text = 'Settings'
+  async created() {
+    await this.getTranslations()
+    document.querySelector('title').text = this.translations.settings
   },
   mounted() {
     this.init()
   },
   methods: {
+    async getTranslations() {
+      const { translations } = await browser.runtime.sendMessage({
+        type: KEYS.GET_TRANSLATIONS
+      })
+      this.translations = translations
+    },
     async init() {
       const settings = await browser.storage.local.get({
         interval: 8,
@@ -223,6 +243,7 @@ export default {
         country: 'us',
         currency: 1
       })
+      this.originalLanguage = settings.language
       this.settings = settings
     }
   }

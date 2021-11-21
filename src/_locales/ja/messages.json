@@ -1,0 +1,10 @@
+{
+  "extensionName": {
+    "description": "Extension name will be here",
+    "message": "Steam Market Item Price Tracker"
+  },
+  "extensionDescription": {
+    "description": "Extension description will be here",
+    "message": "Steam Market Item Price Trackerを使用すると、Steam Community Market Itemの購入/売り注文を追跡できます。"
+  }
+}
