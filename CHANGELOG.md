@@ -1,4 +1,4 @@
-## v1.0.3 (Current version)
+## v1.0.3 (In Review)
 
 ### Added:
 
@@ -8,7 +8,7 @@
 - steamcommunity.com search page integration (by clicking the small icon in the list a quick overview)
 - steamcommunity.com inventory page integration (inventory section has blue border on top of watch items, clicking on the item will show tracking information on the right side)
 
-## v1.0.2 (Under Review)
+## v1.0.2 (Live)
 
 ### Added:
 
@@ -23,6 +23,6 @@
 
 - Extension description
 
-## 1.0.0 (Live)
+## 1.0.0
 
 - Initial release
