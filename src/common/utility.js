@@ -1,16 +1,28 @@
 const createElementFromJson = (json, translations) => {
-  const { tag, text, translationKey, children, attributes } = json
+  const {
+    tag,
+    text,
+    translationKey,
+    prefix,
+    suffix,
+    children,
+    attributes
+  } = json
   const element = document.createElement(tag)
   if (attributes) {
     Object.keys(attributes).forEach(key =>
       element.setAttribute(key, attributes[key])
     )
   }
-  if (text) {
-    element.innerText = text
-  } else if (translationKey) {
-    element.innerText = translations[translationKey]
+  let textContent = text
+  if (!textContent) {
+    textContent = translations[translationKey]
   }
+
+  if (textContent) {
+    element.textContent = `${prefix || ''}${textContent}${suffix || ''}`
+  }
+
   if (children) {
     children.forEach(child =>
       element.appendChild(createElementFromJson(child, translations))
