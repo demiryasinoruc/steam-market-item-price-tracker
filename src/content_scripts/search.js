@@ -1,5 +1,6 @@
 import browser from 'webextension-polyfill'
 import { GET_ITEMS, GET_TRANSLATIONS } from '../common/keys'
+import getMarketHashNameFromUrl from '../common/utility'
 
 console.log('%cSteam Market Item Price Tracker worked!!!', 'color: #299ddc')
 
@@ -97,10 +98,7 @@ const handleRows = async () => {
     const {
       href: { value: url }
     } = link.attributes
-    const urlParts = url.split('/')
-    const nameWithFilter = urlParts[urlParts.length - 1]
-    const [onlyName] = nameWithFilter.split('?filter')
-    const marketHashName = decodeURIComponent(onlyName)
+    const marketHashName = getMarketHashNameFromUrl(url)
     names.push(marketHashName)
   }
   const response = await browser.runtime.sendMessage({
