@@ -163,8 +163,14 @@ export default {
       this.data = trackList
     },
     updateItem(id) {
-      const { minOrderAmount, maxOrderAmount, minSalesAmount, maxSalesAmount } = this.data.find(item => item.id === id)
-      const total = parseFloat(minOrderAmount) + parseFloat(maxOrderAmount) + parseFloat(minSalesAmount) + parseFloat(maxSalesAmount)
+      const row = this.data.find(item => item.id === id)
+
+      row.minOrderAmount = parseFloat(row.minOrderAmount)
+      row.maxOrderAmount = parseFloat(row.maxOrderAmount)
+      row.minSalesAmount = parseFloat(row.minSalesAmount)
+      row.maxSalesAmount = parseFloat(row.maxSalesAmount)
+
+      const total = row.minOrderAmount + row.maxOrderAmount + row.minSalesAmount + row.maxSalesAmount
       if (!total || total <= 0) {
         this.data = [...JSON.parse(JSON.stringify(this.originalData))]
         Vue.$toast.warning(this.translations.enterValidValues)
