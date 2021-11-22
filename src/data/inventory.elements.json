@@ -1,0 +1,80 @@
+{
+  "tag": "div",
+  "attributes": { "id": "smipt-section" },
+  "children": [
+    {
+      "tag": "h3",
+      "attributes": {
+        "style": "color: rgb(210, 210, 210);font-size: 18px;font-weight: bold;",
+        "class": "hover_item_name"
+      },
+      "text": "Steam Market Item Price Tracker"
+    },
+    {
+      "tag": "div",
+      "attributes": { "class": "smipt-row" },
+      "children": [
+        {
+          "tag": "div",
+          "attributes": { "class": "smipt-column" },
+          "translationKey": "minBuyOrder",
+          "suffix": ":",
+          "children": [
+            {
+              "tag": "span",
+              "attributes": {
+                "id": "smipt-minBuyOrder",
+                "class": "smipt-badge"
+              }
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "attributes": { "class": "smipt-column" },
+          "translationKey": "maxBuyOrder",
+          "suffix": ":",
+          "children": [
+            {
+              "tag": "span",
+              "attributes": {
+                "id": "smipt-maxBuyOrder",
+                "class": "smipt-badge"
+              }
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "attributes": { "class": "smipt-column" },
+          "translationKey": "minSellOrder",
+          "suffix": ":",
+          "children": [
+            {
+              "tag": "span",
+              "attributes": {
+                "id": "smipt-minSellOrder",
+                "class": "smipt-badge"
+              }
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "attributes": { "class": "smipt-column" },
+          "translationKey": "maxSellOrder",
+          "suffix": ":",
+          "children": [
+            {
+              "tag": "span",
+              "attributes": {
+                "id": "smipt-maxSellOrder",
+                "class": "smipt-badge"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

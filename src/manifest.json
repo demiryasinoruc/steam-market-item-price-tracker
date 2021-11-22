@@ -32,6 +32,15 @@
       "js": ["./content_scripts/market.js"],
       "matches": ["*://steamcommunity.com/market?smipt=*"],
       "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "*://*.steamcommunity.com/id/*/inventory*",
+        "*://*.steamcommunity.com/profiles/*/inventory*"
+      ],
+      "js": ["./content_scripts/inventory.js"],
+      "css": ["./assets/styles/inventory.css"],
+      "run_at": "document_end"
     }
   ],
   "icons": {

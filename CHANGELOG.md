@@ -1,4 +1,4 @@
-## v1.0.3 (Under Review)
+## v1.0.3 (Current version)
 
 ### Added:
 
@@ -6,6 +6,7 @@
 - Notification if user not logged in steamcommunity.com or user doesn't have steam wallet
 - Item listing page control in popup page when user click to notification
 - steamcommunity.com search page integration (by clicking the small icon in the list a quick overview)
+- steamcommunity.com inventory page integration (inventory section has blue border on top of watch items, clicking on the item will show tracking information on the right side)
 
 ## v1.0.2 (Under Review)
 

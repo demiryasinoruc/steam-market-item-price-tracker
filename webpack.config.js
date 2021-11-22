@@ -31,7 +31,8 @@ module.exports = env => {
       background: './background/index.js',
       'content_scripts/market': './content_scripts/market.js',
       'content_scripts/listings': './content_scripts/listings.js',
-      'content_scripts/search': './content_scripts/search.js'
+      'content_scripts/search': './content_scripts/search.js',
+      'content_scripts/inventory': './content_scripts/inventory.js'
     },
     output: {
       path: path.resolve(__dirname, './dist'),
@@ -165,7 +166,8 @@ module.exports = env => {
           contentScript: [
             'content_scripts/market',
             'content_scripts/listings',
-            'content_scripts/search'
+            'content_scripts/search',
+            'content_scripts/inventory'
           ],
           background: 'background',
           extensionPage: 'popup',

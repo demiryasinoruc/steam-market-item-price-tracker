@@ -74,7 +74,6 @@ This extension requires permissions for "notifications", "storage", "unlimitedSt
 ## Up Next
 
 - Price history record
-- steamcommunity.com inventory page integration
 
 ## Contributors ✨
 

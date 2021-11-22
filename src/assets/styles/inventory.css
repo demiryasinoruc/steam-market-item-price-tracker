@@ -1,0 +1,19 @@
+.smipt-row {
+  width: 100%;
+}
+
+.smipt-column {
+  width: 100%;
+  margin: 8px 0px;
+  font-weight: bold;
+}
+
+.smipt-badge {
+  display: block;
+  float: right;
+  background-color: rgb(41 157 220);
+  color: #fff;
+  padding: 2px 4px;
+  font-size: 14px;
+  font-weight: bold;
+}
