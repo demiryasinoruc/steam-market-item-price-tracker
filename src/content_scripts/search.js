@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill'
 import { GET_ITEMS, GET_TRANSLATIONS } from '../common/keys'
-import getMarketHashNameFromUrl from '../common/utility'
+import getMarketHashNameFromUrl from '../common/steam'
 
 console.log('%cSteam Market Item Price Tracker worked!!!', 'color: #299ddc')
 
