@@ -108,7 +108,9 @@ const addNotification = async (notificationId, item, title, message) => {
   if (showDesktopNotification) {
     notifications.push({
       notificationId: currentNotificationId,
-      item
+      item,
+      title,
+      message
     })
     const isNewNotification = notificationId === currentNotificationId
     createUpdateNotification(
@@ -269,16 +271,35 @@ const onRuntimeMessageHandler = (request, sender) => {
     }
     case KEYS.REMOVE_NOTIFICATION: {
       return new Promise(async resolve => {
-        const { notification } = request
+        const {
+          notification: { notificationId }
+        } = request
         notifications = notifications.filter(
-          n => n.notificationId !== notification.notificationId
+          n => n.notificationId !== notificationId
         )
+        await browser.notifications.clear(notificationId)
         await browser.storage.local.set({
           notificationLength: notifications.length
         })
         await browser.browserAction.setBadgeText({
           text:
             notifications.length === 0 ? '' : notifications.length.toString()
+        })
+        resolve()
+      })
+    }
+    case KEYS.TRIGGER_NOTIFICATION: {
+      return new Promise(async resolve => {
+        const {
+          notification: { notificationId, title, message }
+        } = request
+
+        await browser.notifications.clear(notificationId)
+
+        await browser.notifications.create(notificationId, {
+          ...NOTIFICATION_BASE,
+          title,
+          message
         })
         resolve()
       })

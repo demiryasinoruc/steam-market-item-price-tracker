@@ -70,17 +70,23 @@
         <div
           v-for="(notification,index) in notificationList"
           :key="index"
-          class="d-flex justify-content-between border mt-2"
+          class="d-flex justify-content-end border mt-2"
         >
           <button
-            class="btn btn-link"
+            class="btn btn-link text-left flex-fill"
             target="_blank"
             @click="openListingPage(notification)"
           >
             {{ notification.item.name }}
           </button>
           <button
-            class="btn btn"
+            class="btn btn-outline-warning  m-1"
+            @click="triggerNotification(notification)"
+          >
+            <i class="fa fa-refresh"></i>
+          </button>
+          <button
+            class="btn btn-outline-danger  m-1"
             @click="removeNotification(notification)"
           >
             <i class="fa fa-times"></i>
@@ -193,6 +199,13 @@ export default {
         notification
       })
     },
+    async triggerNotification(notification) {
+      await browser.runtime.sendMessage({
+        type: KEYS.TRIGGER_NOTIFICATION,
+        notification
+      })
+    },
+
     async openListingPage(notification) {
       const { name, appid } = notification.item
       const encodedName = encodeURIComponent(name)
