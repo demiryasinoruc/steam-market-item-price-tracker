@@ -1,3 +1,17 @@
+## v1.0.5 (In Review)
+
+### Added
+
+- Chagelog url added to popup page
+- @steamextensions twitter link added to popup page
+- Version info added to popup page
+
+### Updated
+
+- Extension badge text set to blank if notification count equals to 0
+- Extension badge text set to blank on browser launch or extension restart
+- Navigation buttons moved to footer in popup page
+
 ## v1.0.4 (Live)
 
 ### Added
