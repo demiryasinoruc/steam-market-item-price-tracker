@@ -1,6 +1,9 @@
 {
   "buyOrderDecreased": "Osta tilaushinta laski",
   "buyOrderIncreased": "Osta tilaushinta kasvoi",
+  "goToTwitter": "Mennä twitteriin",
+  "goToChangelog": "Mene Changeogogiin",
+  "version": "Versio",
   "sellOrderDecreased": "Myy tilaushinta laski",
   "sellOrderIncreased": "Myy tilaushinta kasvoi",
   "walletNotFound": "Lompakko ei löydy",

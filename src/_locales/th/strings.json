@@ -1,6 +1,9 @@
 {
   "buyOrderDecreased": "ซื้อราคาคำสั่งซื้อลดลง",
   "buyOrderIncreased": "ซื้อราคาคำสั่งซื้อเพิ่มขึ้น",
+  "goToTwitter": "ไปที่ Twitter",
+  "goToChangelog": "ไปเปลี่ยน",
+  "version": "รุ่น",
   "sellOrderDecreased": "ขายราคาคำสั่งลดลง",
   "sellOrderIncreased": "ขายราคาคำสั่งซื้อเพิ่มขึ้น",
   "walletNotFound": "ไม่พบกระเป๋าเงิน",

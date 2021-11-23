@@ -1,6 +1,9 @@
 {
   "buyOrderDecreased": "Alış fiyatı düştü",
   "buyOrderIncreased": "Alış fiyatı arttı",
+  "goToTwitter": "Twitter'a git",
+  "goToChangelog": "Değişim günlüğüne git",
+  "version": "Versiyon",
   "sellOrderDecreased": "Satış fiyatı düştü",
   "sellOrderIncreased": "Satış fiyatı arttı",
   "walletNotFound": "Cüzdan bulunamadı",
@@ -17,7 +20,7 @@
   "openSettings": "Ayarları aç",
   "pause": "Duraklat",
   "continue": "Devam",
-  "itemCounts": "{{ITEMCOUNT}} öğe(ler)",
+  "itemCounts": "{{ITEMCOUNT}} eşya",
   "trackingListEmpty": "İzleme listeniz boş.",
   "notifications": "Bildirimler",
   "noNewNotification": "Yeni bildirim yok.",

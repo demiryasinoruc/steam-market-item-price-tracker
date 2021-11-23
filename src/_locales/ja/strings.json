@@ -1,6 +1,9 @@
 {
   "buyOrderDecreased": "購入注文価格は減少しました",
   "buyOrderIncreased": "購入注文価格が増加しました",
+  "goToTwitter": "Twitterに行きます",
+  "goToChangelog": "チェンジログに行く",
+  "version": "バージョン",
   "sellOrderDecreased": "売り注文価格が低下しました",
   "sellOrderIncreased": "注文価格を売る",
   "walletNotFound": "財布が見つかりません",

@@ -1,6 +1,9 @@
 {
   "buyOrderDecreased": "주문 가격이 감소했습니다",
   "buyOrderIncreased": "주문 주문 가격 증가",
+  "goToTwitter": "Twitter로 가십시오",
+  "goToChangelog": "ChangeLog로 가십시오",
+  "version": "버전",
   "sellOrderDecreased": "주문 가격 판매 가격이 감소했습니다",
   "sellOrderIncreased": "주문 주문 가격이 증가했습니다",
   "walletNotFound": "지갑을 찾을 수 없습니다",

@@ -1,7 +1,10 @@
 {
   "buyOrderDecreased": "Køb ordreprisen faldt",
   "buyOrderIncreased": "Køb ordrepris steg",
-  "sellOrderDecreased": "Цената на поръчката за продажба намалява",
+  "goToTwitter": "Gå til Twitter",
+  "goToChangelog": "Gå til Changelog",
+  "version": "Version",
+  "sellOrderDecreased": "Sælg ordreprisen faldt",
   "sellOrderIncreased": "Sælg ordrepris steg",
   "walletNotFound": "Tegnebog ikke fundet",
   "walletNotFoundMessage": "Lav din Steam Wallet eller logget ind på SteamCommunity.com",

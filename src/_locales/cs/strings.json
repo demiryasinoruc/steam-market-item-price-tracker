@@ -1,6 +1,9 @@
 {
   "buyOrderDecreased": "Koupit cenu objednávky snížena",
   "buyOrderIncreased": "Zvýšená cena objednávky",
+  "goToTwitter": "Jít do twitteru",
+  "goToChangelog": "Jít do Changelog.",
+  "version": "Verze",
   "sellOrderDecreased": "Prodáváme cena objednávky se snížila",
   "sellOrderIncreased": "Zvýšená cena objednávky",
   "walletNotFound": "Peněženka nebyla nalezena",

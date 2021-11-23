@@ -1,6 +1,9 @@
 {
   "buyOrderDecreased": "Acheter le prix de commande diminué",
   "buyOrderIncreased": "Acheter prix de commande augmenté",
+  "goToTwitter": "Aller à Twitter",
+  "goToChangelog": "Aller à Changelog",
+  "version": "Version",
   "sellOrderDecreased": "Vendre le prix de commande diminué",
   "sellOrderIncreased": "Prix ​​de vente de commande augmenté",
   "walletNotFound": "Portefeuille non trouvé",

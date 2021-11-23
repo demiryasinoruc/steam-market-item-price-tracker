@@ -1,6 +1,9 @@
 {
   "buyOrderDecreased": "购买订单价格下降",
   "buyOrderIncreased": "买订单价格增加",
+  "goToTwitter": "转到推特",
+  "goToChangelog": "转到更改兴",
+  "version": "版本",
   "sellOrderDecreased": "卖订单价格下降",
   "sellOrderIncreased": "卖订单价格增加",
   "walletNotFound": "钱包找不到",

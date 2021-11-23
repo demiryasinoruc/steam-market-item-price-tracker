@@ -1,6 +1,9 @@
 {
   "buyOrderDecreased": "A megrendelés árának csökkentése csökkent",
   "buyOrderIncreased": "Megnövekedett megrendelés ár",
+  "goToTwitter": "Twitterbe megy",
+  "goToChangelog": "Menj a Changelogba",
+  "version": "Változat",
   "sellOrderDecreased": "Eladási árak csökkent",
   "sellOrderIncreased": "A megrendelés árának növekedése nőtt",
   "walletNotFound": "A pénztárca nem található",

@@ -1,6 +1,9 @@
 {
   "buyOrderDecreased": "Купете цената на поръчката е намаляла",
   "buyOrderIncreased": "Повишаване на цената на поръчка за закупуване",
+  "goToTwitter": "Отидете в Twitter",
+  "goToChangelog": "Отидете в Changelog.",
+  "version": "Версия",
   "sellOrderDecreased": "Цената на поръчката за продажба намалява",
   "sellOrderIncreased": "Цената на поръчката за продажба се увеличи",
   "walletNotFound": "Портфейла не е намерен",

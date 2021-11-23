@@ -1,6 +1,9 @@
 {
   "buyOrderDecreased": "Αγοράστε την τιμή παραγγελίας μειώθηκε",
   "buyOrderIncreased": "Αγοράστε τιμή παραγγελίας αυξήθηκε",
+  "goToTwitter": "Πηγαίνετε στο twitter",
+  "goToChangelog": "Πηγαίνετε στο changelog",
+  "version": "Εκδοχή",
   "sellOrderDecreased": "Η τιμή παραγγελίας πώλησης μειώθηκε",
   "sellOrderIncreased": "Η τιμή παραγγελίας πώλησης αυξήθηκε",
   "walletNotFound": "Το πορτοφόλι δεν βρέθηκε",

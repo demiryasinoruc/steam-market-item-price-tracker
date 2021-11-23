@@ -1,6 +1,9 @@
 {
   "buyOrderDecreased": "Cumpărați prețul comenzii a scăzut",
   "buyOrderIncreased": "Cumpărați prețul comenzii a crescut",
+  "goToTwitter": "Du-te la Twitter",
+  "goToChangelog": "Du-te la Changelog.",
+  "version": "Versiune",
   "sellOrderDecreased": "Prețul comenzii de vânzare a scăzut",
   "sellOrderIncreased": "Prețul de comandă de vânzare a crescut",
   "walletNotFound": "Portofelul nu a fost găsit",

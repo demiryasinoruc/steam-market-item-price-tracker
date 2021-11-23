@@ -1,6 +1,9 @@
 {
   "buyOrderDecreased": "Köp orderpriset minskat",
   "buyOrderIncreased": "Köp orderpriset ökat",
+  "goToTwitter": "Gå till twitter",
+  "goToChangelog": "Gå till Changelog",
+  "version": "Version",
   "sellOrderDecreased": "Sälj orderpriset minskat",
   "sellOrderIncreased": "Sälj orderpriset ökat",
   "walletNotFound": "Plånboken hittades inte",

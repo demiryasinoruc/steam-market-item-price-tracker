@@ -1,6 +1,9 @@
 {
   "buyOrderDecreased": "Buy order price decreased",
   "buyOrderIncreased": "Buy order price increased",
+  "goToTwitter": "Go to Twitter",
+  "goToChangelog": "Go to changelog",
+  "version": "Version",
   "sellOrderDecreased": "Sell order price decreased",
   "sellOrderIncreased": "Sell order price increased",
   "walletNotFound": "Wallet not found",

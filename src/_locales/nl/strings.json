@@ -1,6 +1,9 @@
 {
   "buyOrderDecreased": "Koop orderprijs gedaald",
   "buyOrderIncreased": "Koop bestelling Prijs is toegenomen",
+  "goToTwitter": "Ga naar Twitter",
+  "goToChangelog": "Ga naar Changelog",
+  "version": "Versie",
   "sellOrderDecreased": "Verkoop orderprijs daalde",
   "sellOrderIncreased": "Verkoop orderprijs verhoogd",
   "walletNotFound": "Portemonnee niet gevonden",

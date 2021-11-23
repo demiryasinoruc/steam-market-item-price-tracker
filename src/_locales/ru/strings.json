@@ -1,6 +1,9 @@
 {
   "buyOrderDecreased": "Купить цену заказа уменьшилась",
   "buyOrderIncreased": "Купить цену заказа увеличилась",
+  "goToTwitter": "Перейти в Твиттер",
+  "goToChangelog": "Перейти к ChangeLog",
+  "version": "Версия",
   "sellOrderDecreased": "Цена продажи заказа снизилась",
   "sellOrderIncreased": "Цена продажи заказа увеличилась",
   "walletNotFound": "Кошелек не найден",
