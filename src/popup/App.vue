@@ -75,18 +75,21 @@
           <button
             class="btn btn-link text-left flex-fill"
             target="_blank"
+            :title="translations.openListingPage"
             @click="openListingPage(notification)"
           >
             {{ notification.item.name }}
           </button>
           <button
-            class="btn btn-outline-warning  m-1"
+            class="btn btn-outline-warning m-1"
+            :title="translations.triggerNotification"
             @click="triggerNotification(notification)"
           >
             <i class="fa fa-refresh"></i>
           </button>
           <button
-            class="btn btn-outline-danger  m-1"
+            class="btn btn-outline-danger m-1"
+            :title="translations.triggerNotification"
             @click="removeNotification(notification)"
           >
             <i class="fa fa-times"></i>
