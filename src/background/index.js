@@ -207,6 +207,7 @@ const readData = async iteration => {
 
 const start = async () => {
   await getSettings()
+  await setBadgeTextNotificationCount()
 
   setInterval(() => {
     // return if status is false or user not set or trackList is empty
