@@ -51,7 +51,7 @@ To use this extension, please install it from the [Chrome Web Store](https://chr
 ## Features
 
 - Shows you desktop notification when there is buy/sell prices changed by users preferences
-- Dark/Light mode (for extension pages with browser settings)
+- Dark/Light mode (for extension pages by browser settings)
 
 ### Compatibility:
 
