@@ -1,4 +1,15 @@
-## v1.0.3 (In Review)
+## v1.0.4 (In Review)
+
+### Added
+
+- Trigger desktop notification from popup page
+- New translations to the popup page notifications section
+
+### Fixed:
+
+- Incorrect price value when updating values on "Tracking List" (in extension) page
+
+## v1.0.3 (Live)
 
 ### Added:
 
@@ -8,7 +19,7 @@
 - steamcommunity.com search page integration (by clicking the small icon in the list a quick overview)
 - steamcommunity.com inventory page integration (inventory section has blue border on top of watch items, clicking on the item will show tracking information on the right side)
 
-## v1.0.2 (Live)
+## v1.0.2
 
 ### Added:
 
