@@ -1,4 +1,4 @@
-## v1.0.4 (In Review)
+## v1.0.4 (Live)
 
 ### Added
 
@@ -9,7 +9,7 @@
 
 - Incorrect price value when updating values on "Tracking List" (in extension) page
 
-## v1.0.3 (Live)
+## v1.0.3
 
 ### Added:
 
@@ -30,7 +30,7 @@
 - After initialization currency, country and language options stuck with default values
 - Toast message styling issue
 
-### Changed:
+### Updated:
 
 - Extension description
 
