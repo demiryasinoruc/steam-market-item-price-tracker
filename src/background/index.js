@@ -82,6 +82,11 @@ const createUpdateNotification = async (
   })
 }
 
+const setBadgeTextNotificationCount = async () => {
+  const text = notifications.length === 0 ? '' : notifications.length.toString()
+  await browser.browserAction.setBadgeText({ text })
+}
+
 const addNotification = async (notificationId, item, title, message) => {
   let currentNotificationId = notificationId
   const existNotificationIndex = notifications.findIndex(
@@ -126,9 +131,7 @@ const addNotification = async (notificationId, item, title, message) => {
     await browser.storage.local.set({
       notificationLength
     })
-    await browser.browserAction.setBadgeText({
-      text: notificationLength.toString()
-    })
+    setBadgeTextNotificationCount()
   }
 }
 
@@ -281,10 +284,7 @@ const onRuntimeMessageHandler = (request, sender) => {
         await browser.storage.local.set({
           notificationLength: notifications.length
         })
-        await browser.browserAction.setBadgeText({
-          text:
-            notifications.length === 0 ? '' : notifications.length.toString()
-        })
+        await setBadgeTextNotificationCount()
         resolve()
       })
     }
@@ -365,9 +365,7 @@ const onRuntimeMessageHandler = (request, sender) => {
           await browser.storage.local.set({
             notificationLength: notifications.length
           })
-          await browser.browserAction.setBadgeText({
-            text: notifications.length.toString()
-          })
+          await setBadgeTextNotificationCount()
         }
 
         await browser.storage.local.set({ trackList: trackListData })
