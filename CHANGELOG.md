@@ -1,4 +1,4 @@
-## v1.0.5 (In Review)
+## v1.0.5 (Live)
 
 ### Added
 
@@ -12,7 +12,7 @@
 - Extension badge text set to blank on browser launch or extension restart
 - Navigation buttons moved to footer in popup page
 
-## v1.0.4 (Live)
+## v1.0.4
 
 ### Added
 
