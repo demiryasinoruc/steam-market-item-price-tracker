@@ -2,7 +2,7 @@ import browser from 'webextension-polyfill'
 import logger from '../common/logger-builder'
 import KEYS from '../common/keys'
 import { NOTIFICATION_BASE, INSTALLATION_URL } from '../common/constants'
-import { createGuid } from '../common/utility'
+import { createGuid, encodeMarketHashName } from '../common/utility'
 import TRANSLATIONS from '../_locales/en/strings.json'
 import LANGUAGES from '../data/languages.json'
 
@@ -409,7 +409,7 @@ const onNotificationClickedHandler = async notificationId => {
   const {
     item: { name, appid }
   } = notification
-  const encodedName = encodeURIComponent(name)
+  const encodedName = encodeMarketHashName(name)
   const url = `https://steamcommunity.com/market/listings/${appid}/${encodedName}`
   const tabs = await browser.tabs.query({
     url

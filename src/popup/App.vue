@@ -146,6 +146,7 @@ import browser from 'webextension-polyfill'
 import TRANSLATIONS from '../_locales/en/strings.json'
 import { INSTALLATION_URL, TWITTER_URL, CHANGELOG_URL } from '../common/constants'
 import KEYS from '../common/keys'
+import { encodeMarketHashName } from '../common/utility'
 
 export default {
   data() {
@@ -249,7 +250,7 @@ export default {
 
     async openListingPage(notification) {
       const { name, appid } = notification.item
-      const encodedName = encodeURIComponent(name)
+      const encodedName = encodeMarketHashName(name)
       const url = `https://steamcommunity.com/market/listings/${appid}/${encodedName}`
       const tabs = await browser.tabs.query({
         url

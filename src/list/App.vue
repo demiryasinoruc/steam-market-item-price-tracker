@@ -55,7 +55,7 @@
                   <a
                     target="_blank"
                     class="btn btn-link item-name"
-                    :href="`https://steamcommunity.com/market/listings/${row.appid}/${row.name}#smipt`"
+                    :href="`https://steamcommunity.com/market/listings/${row.appid}/${encodedMarketHashName(row.name)}#smipt`"
                   >
                     {{ row.name }}
                   </a>
@@ -128,6 +128,7 @@ import Vue from 'vue'
 import browser from 'webextension-polyfill'
 import KEYS from '../common/keys'
 import TRANSLATIONS from '../_locales/en/strings.json'
+import { encodeMarketHashName } from '../common/utility'
 
 export default {
   data() {
@@ -198,6 +199,9 @@ export default {
         })
         Vue.$toast.success(this.translations.successfullySaved)
       }, 500)
+    },
+    encodedMarketHashName(name) {
+      return encodeMarketHashName(name)
     }
   }
 }

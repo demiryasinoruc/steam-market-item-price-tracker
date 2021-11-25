@@ -58,5 +58,9 @@ module.exports = {
       return v.toString(16)
     })
   },
+  encodeMarketHashName: marketHashName => {
+    const encoded = encodeURIComponent(marketHashName)
+    return encoded.replace(/\(/g, '%28').replace(/\)/g, '%29')
+  },
   createElementFromJson
 }
