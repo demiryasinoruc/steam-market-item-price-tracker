@@ -203,7 +203,8 @@ export default {
       currencies: CURENCIES,
       languages: LANGUAGES,
       pageInitialized: false,
-      translations: TRANSLATIONS
+      translations: TRANSLATIONS,
+      updateTimeOutHandler: -1
     }
   },
   computed: {
@@ -218,8 +219,9 @@ export default {
           this.pageInitialized = true
           return
         }
-        const { interval, logData, language, country, currency, stepIncreaser } = newSettings
+        const { interval, logData, language, country, currency } = newSettings
         let logLength = parseInt(newSettings.logLength)
+        let stepIncreaser = parseFloat(newSettings.stepIncreaser)
         if (+!logLength || logLength < 0) {
           logLength = 0
         }
@@ -227,14 +229,23 @@ export default {
           logLength = this.maxLogLength
         }
         this.settings.logLength = logLength
-        await browser.storage.local.set({ interval, logLength, logData, language, country, currency, stepIncreaser })
-        await browser.runtime.sendMessage({
-          type: KEYS.SETTINGS_UPDATED
-        })
-        Vue.$toast.success(this.translations.successfullySaved)
-        if (this.originalLanguage !== language) {
-          window.location.reload()
+
+        if (!+stepIncreaser || stepIncreaser < 0.1) {
+          stepIncreaser = 0.1
         }
+
+        this.settings.stepIncreaser = stepIncreaser
+        clearTimeout(this.updateTimeOutHandler)
+        this.updateTimeOutHandler = setTimeout(async () => {
+          await browser.storage.local.set({ interval, logLength, logData, language, country, currency, stepIncreaser })
+          await browser.runtime.sendMessage({
+            type: KEYS.SETTINGS_UPDATED
+          })
+          Vue.$toast.success(this.translations.successfullySaved)
+          if (this.originalLanguage !== language) {
+            window.location.reload()
+          }
+        }, 500)
       },
       deep: true
     }
