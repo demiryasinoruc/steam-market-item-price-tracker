@@ -26,6 +26,7 @@
   "noNewNotification": "ไม่มีการแจ้งเตือนใหม่",
   "settings": "การตั้งค่า",
   "readItemsIntrerval": "อ่านรายการทุก {{SETTINGSINTERVAL}} วินาที (s)",
+  "stepIncreaser": "ราคาเปลี่ยนราคาขั้นตอนตามหน้ารายการ",
   "language": "ภาษา",
   "currency": "สกุลเงิน",
   "country": "ประเทศ",

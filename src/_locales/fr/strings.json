@@ -26,6 +26,7 @@
   "noNewNotification": "Pas de nouvelles notifications.",
   "settings": "Paramètres",
   "readItemsIntrerval": "Lire les éléments tous les {{SETTINGSINTERVAL}} Deuxième (s)",
+  "stepIncreaser": "Valeur de l'étape de changement de prix sur la page de la page",
   "language": "Langue",
   "currency": "Monnaie",
   "country": "Pays",

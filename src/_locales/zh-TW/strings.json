@@ -26,6 +26,7 @@
   "noNewNotification": "沒有新的通知。",
   "settings": "設置",
   "readItemsIntrerval": "讀取每個{{SETTINGSINTERVAL}}秒的項目",
+  "stepIncreaser": "價格更改上市頁面的步驟值",
   "language": "語",
   "currency": "貨幣",
   "country": "國家",

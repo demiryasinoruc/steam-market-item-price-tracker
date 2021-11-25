@@ -26,6 +26,7 @@
   "noNewNotification": "新しい通知はありません。",
   "settings": "設定",
   "readItemsIntrerval": "{{SETTINGSINTERVAL}}秒ごとのアイテムを読む",
+  "stepIncreaser": "上場ページの価格変更ステップ値",
   "language": "言語",
   "currency": "通貨",
   "country": "国",

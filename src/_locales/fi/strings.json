@@ -26,6 +26,7 @@
   "noNewNotification": "Ei uusia ilmoituksia.",
   "settings": "asetukset",
   "readItemsIntrerval": "Lue kohteita jokainen {{SETTINGSINTERVAL}} Toinen (S)",
+  "stepIncreaser": "Hintamuutos STEP arvo listalla",
   "language": "Kieli",
   "currency": "Valuutta",
   "country": "Maa",

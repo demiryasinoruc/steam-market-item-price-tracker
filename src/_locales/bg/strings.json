@@ -26,6 +26,7 @@
   "noNewNotification": "Няма нови известия.",
   "settings": "Настройки",
   "readItemsIntrerval": "Четене на елементи всеки {{SETTINGSINTERVAL}} втори (и)",
+  "stepIncreaser": "Цена промяна стъпка на страницата на страницата",
   "language": "Език",
   "currency": "Валута",
   "country": "Страна",

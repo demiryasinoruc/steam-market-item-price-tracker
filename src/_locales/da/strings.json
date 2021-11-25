@@ -26,6 +26,7 @@
   "noNewNotification": "Ingen nye meddelelser.",
   "settings": "Indstillinger.",
   "readItemsIntrerval": "Læs varer hver {{SETTINGSINTERVAL}} sekunder (r)",
+  "stepIncreaser": "Prisændring Step Value på noteringsside",
   "language": "Sprog",
   "currency": "betalingsmiddel",
   "country": "Land",

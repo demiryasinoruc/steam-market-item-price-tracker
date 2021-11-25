@@ -26,6 +26,7 @@
   "noNewNotification": "Нет новых уведомлений.",
   "settings": "Настройки",
   "readItemsIntrerval": "Читать элементы Каждый {{SETTINGSINTERVAL}} Вторые (ы)",
+  "stepIncreaser": "Цена Изменить значение шага на странице листинга",
   "language": "Язык",
   "currency": "Валюта",
   "country": "Страна",

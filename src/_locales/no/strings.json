@@ -26,6 +26,7 @@
   "noNewNotification": "Ingen nye varsler.",
   "settings": "Innstillinger",
   "readItemsIntrerval": "Les elementer hver {{SETTINGSINTERVAL}} andre (r)",
+  "stepIncreaser": "Prisendringstrinnsverdi på oppføringside",
   "language": "Språk",
   "currency": "Valuta",
   "country": "Land",

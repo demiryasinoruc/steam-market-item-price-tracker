@@ -13,11 +13,11 @@
               <div class="form-group row">
                 <label
                   for="interval"
-                  class="col-form-label col-5"
+                  class="col-form-label col-7"
                 >
                   {{ intervalMessage }}
                 </label>
-                <div class="col-7">
+                <div class="col-5">
                   <input
                     id="interval"
                     v-model="settings.interval"
@@ -30,12 +30,30 @@
               </div>
               <div class="form-group row">
                 <label
+                  for="stepIncreaser"
+                  class="col-form-label col-7"
+                >
+                  {{ translations.stepIncreaser }}
+                </label>
+                <div class="col-5">
+                  <input
+                    id="stepIncreaser"
+                    v-model="settings.stepIncreaser"
+                    type="number"
+                    step="0.1"
+                    min="0.1"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label
                   for="language"
-                  class="col-form-label col-5"
+                  class="col-form-label col-7"
                 >
                   {{ translations.language }}
                 </label>
-                <div class="col-7">
+                <div class="col-5">
                   <select
                     id="language"
                     v-model="settings.language"
@@ -54,11 +72,11 @@
               <div class="form-group row">
                 <label
                   for="currency"
-                  class="col-form-label col-5"
+                  class="col-form-label col-7"
                 >
                   {{ translations.currency }}
                 </label>
-                <div class="col-7">
+                <div class="col-5">
                   <select
                     id="currency"
                     v-model="settings.currency"
@@ -77,11 +95,11 @@
               <div class="form-group row">
                 <label
                   for="country"
-                  class="col-form-label col-5"
+                  class="col-form-label col-7"
                 >
                   {{ translations.country }}
                 </label>
-                <div class="col-7">
+                <div class="col-5">
                   <select
                     id="country"
                     v-model="settings.country"
@@ -103,7 +121,7 @@
               >
                 <label
                   for="log-data"
-                  class="col-form-label col-5"
+                  class="col-form-label col-7"
                 >
                   {{ translations.savePriceData }}
                 </label>
@@ -124,11 +142,11 @@
               >
                 <label
                   for="logCount"
-                  class="col-form-label col-5"
+                  class="col-form-label col-7"
                 >
                   {{ translations.dataCount }}
                 </label>
-                <div class="col-7">
+                <div class="col-5">
                   <input
                     id="logCount"
                     v-model="settings.logLength"
@@ -176,7 +194,8 @@ export default {
         logData: false,
         language: 'english',
         country: 'us',
-        currency: 1
+        currency: 1,
+        stepIncreaser: 0.1
       },
       originalLanguage: '',
       maxLogLength: MAX_LOG_LENGTH,
@@ -199,7 +218,7 @@ export default {
           this.pageInitialized = true
           return
         }
-        const { interval, logData, language, country, currency } = newSettings
+        const { interval, logData, language, country, currency, stepIncreaser } = newSettings
         let logLength = parseInt(newSettings.logLength)
         if (+!logLength || logLength < 0) {
           logLength = 0
@@ -208,7 +227,7 @@ export default {
           logLength = this.maxLogLength
         }
         this.settings.logLength = logLength
-        await browser.storage.local.set({ interval, logLength, logData, language, country, currency })
+        await browser.storage.local.set({ interval, logLength, logData, language, country, currency, stepIncreaser })
         await browser.runtime.sendMessage({
           type: KEYS.SETTINGS_UPDATED
         })
@@ -237,6 +256,7 @@ export default {
     async init() {
       const settings = await browser.storage.local.get({
         interval: 8,
+        stepIncreaser: 0.1,
         logLength: 20,
         logData: false,
         language: 'english',

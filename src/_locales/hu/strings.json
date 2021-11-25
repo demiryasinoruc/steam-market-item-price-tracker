@@ -26,6 +26,7 @@
   "noNewNotification": "Nincs új értesítés.",
   "settings": "Beállítások",
   "readItemsIntrerval": "Olvassa el az elemeket minden {{SETTINGSINTERVAL}} másodperc (ek)",
+  "stepIncreaser": "Árváltás lépés értéke a listában",
   "language": "Nyelv",
   "currency": "Valuta",
   "country": "Ország",

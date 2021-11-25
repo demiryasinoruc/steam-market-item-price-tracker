@@ -26,6 +26,7 @@
   "noNewNotification": "Inga nya meddelanden.",
   "settings": "inställningar",
   "readItemsIntrerval": "Läs objekt varje {{SETTINGSINTERVAL}} Andra (er)",
+  "stepIncreaser": "Prisförändringssteg Värde på listningssida",
   "language": "Språk",
   "currency": "Valuta",
   "country": "Land",

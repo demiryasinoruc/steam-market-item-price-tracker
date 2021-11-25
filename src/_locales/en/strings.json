@@ -26,6 +26,7 @@
   "noNewNotification": "No new notifications.",
   "settings": "Settings",
   "readItemsIntrerval": "Read items every {{SETTINGSINTERVAL}} second(s)",
+  "stepIncreaser": "Price change step value on listing page",
   "language": "Language",
   "currency": "Currency",
   "country": "Country",

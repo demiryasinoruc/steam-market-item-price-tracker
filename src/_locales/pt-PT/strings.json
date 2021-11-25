@@ -26,6 +26,7 @@
   "noNewNotification": "Nenhuma nova notificação.",
   "settings": "Definições",
   "readItemsIntrerval": "Leia os itens a cada {{SETTINGSINTERVAL}} segundo (s)",
+  "stepIncreaser": "Valor de passo de mudança de preço na página de listagem",
   "language": "Língua",
   "currency": "Moeda",
   "country": "País",

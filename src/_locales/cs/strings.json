@@ -26,6 +26,7 @@
   "noNewNotification": "Žádná nová oznámení.",
   "settings": "Nastavení",
   "readItemsIntrerval": "Přečtěte si položky Každý {{SETTINGSINTERVAL}} sekundy (y)",
+  "stepIncreaser": "Cena Změna Step Hodnota na stránce výpisu",
   "language": "Jazyk",
   "currency": "Měna",
   "country": "Země",

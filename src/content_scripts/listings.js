@@ -90,7 +90,8 @@ const removeHandler = async () => {
   setMessage('Successfully removed', 'smipt-success-message')
 }
 
-const createSection = () => {
+const createSection = async () => {
+  const { stepIncreaser } = await browser.storage.local.get('stepIncreaser')
   const item = currentItem || {}
   const myListings = document.querySelector('#myListings')
   const panel = createElementFromJson(LISTING_ELEMENTS, translations)
@@ -106,6 +107,11 @@ const createSection = () => {
   maxOrderAmountInput.value = item.maxOrderAmount || 0
   minSalesAmountInput.value = item.minSalesAmount || 0
   maxSalesAmountInput.value = item.maxSalesAmount || 0
+
+  minOrderAmountInput.step = stepIncreaser
+  maxOrderAmountInput.step = stepIncreaser
+  minSalesAmountInput.step = stepIncreaser
+  maxSalesAmountInput.step = stepIncreaser
 
   minOrderAmountInput.addEventListener('blur', inputOnBlur)
   maxOrderAmountInput.addEventListener('blur', inputOnBlur)

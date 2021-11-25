@@ -26,6 +26,7 @@
   "noNewNotification": "Yeni bildirim yok.",
   "settings": "Ayarlar",
   "readItemsIntrerval": "Öğeleri her {{SETTINGSINTERVAL}} saniyede bir okuyun",
+  "stepIncreaser": "Listeleme sayfasındaki fiyat değişikliği adımı değeri",
   "language": "Steam Dili",
   "currency": "Para Birimi",
   "country": "Ülke",

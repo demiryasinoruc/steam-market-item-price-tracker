@@ -26,6 +26,7 @@
   "noNewNotification": "没有新的通知。",
   "settings": "设置",
   "readItemsIntrerval": "读取每个{{SETTINGSINTERVAL}}秒的项目",
+  "stepIncreaser": "价格更改上市页面的步骤值",
   "language": "语",
   "currency": "货币",
   "country": "国家",

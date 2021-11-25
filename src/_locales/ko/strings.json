@@ -26,6 +26,7 @@
   "noNewNotification": "새로운 알림 없음.",
   "settings": "설정",
   "readItemsIntrerval": "모든 {{SETTINGSINTERVAL}}} 두 번째 항목 읽기",
+  "stepIncreaser": "가격 변경 단계 페이지의 가격 변경 단계",
   "language": "언어",
   "currency": "통화",
   "country": "국가",

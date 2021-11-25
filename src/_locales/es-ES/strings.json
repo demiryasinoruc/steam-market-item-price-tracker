@@ -26,6 +26,7 @@
   "noNewNotification": "No hay notificaciones nuevas.",
   "settings": "Ajustes",
   "readItemsIntrerval": "Leer los artículos cada {{SETTINGSINTERVAL}} Segundo (s)",
+  "stepIncreaser": "Cambio de precio Paso Valor en la página de listado",
   "language": "Idioma",
   "currency": "Divisa",
   "country": "País",

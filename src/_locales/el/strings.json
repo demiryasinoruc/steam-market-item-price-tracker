@@ -26,6 +26,7 @@
   "noNewNotification": "Δεν υπάρχουν νέες ειδοποιήσεις.",
   "settings": "Ρυθμίσεις",
   "readItemsIntrerval": "Διαβάστε τα στοιχεία κάθε {{SETTINGSINTERVAL}} δευτερόλεπτο (s)",
+  "stepIncreaser": "Αλλαγή τιμής Αλλαγή βήματος στη σελίδα καταχώρισης",
   "language": "Γλώσσα",
   "currency": "Νόμισμα",
   "country": "Χώρα",
