@@ -1,3 +1,19 @@
+## v1.0.6 (In Review)
+
+### Added
+
+- Price step increase option for listing page (default 0.1)
+- Auto save delay applied in settings page
+
+### Fixed
+
+- Wrong changelog link title on popup page
+- Clone tab issue when clicking on notifications
+
+### Updated
+
+- Changelog link border color changed on popup page
+
 ## v1.0.5 (Live)
 
 ### Added
