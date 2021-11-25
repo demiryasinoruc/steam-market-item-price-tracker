@@ -88,7 +88,7 @@
           <div class="col-9 text-right">
 
             <a
-              :title="translations.goToTwitter"
+              :title="translations.goToChangelog"
               class="btn btn-outline-info"
               target="_blank"
               :href="changeLog"
