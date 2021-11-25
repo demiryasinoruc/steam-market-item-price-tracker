@@ -89,7 +89,7 @@
 
             <a
               :title="translations.goToChangelog"
-              class="btn btn-outline-info"
+              class="btn btn-outline-primary"
               target="_blank"
               :href="changeLog"
             >
