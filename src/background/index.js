@@ -343,6 +343,19 @@ const onRuntimeMessageHandler = (request, sender) => {
         const { id } = request
         trackListData = trackListData.filter(i => i.id !== id)
         await browser.storage.local.set({ trackList: trackListData })
+        const notification = notifications.find(
+          n => n.item.id === id
+        )
+        if (notification) {
+          notifications = notifications.filter(
+            n => n.notificationId !== notification.notificationId
+          )
+          await browser.notifications.clear(notification.notificationId)
+          await browser.storage.local.set({
+            notificationLength: notifications.length
+          })
+          await setBadgeTextNotificationCount()
+        }
         resolve()
       })
     }
