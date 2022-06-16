@@ -39,7 +39,15 @@
           <div class="col-sm-12">
             <h5>
               {{ translations.notifications }} ({{ notifications.length }})
+              <span
+                class="btn btn-link float-right"
+                :disabled="openAllStatus"
+                @click="openAll"
+              >
+                {{ translations.openAll }}
+              </span>
             </h5>
+            <div class="clearfix"></div>
             <div
               v-for="(notification,index) in notificationList"
               :key="index"
@@ -146,7 +154,6 @@ import browser from 'webextension-polyfill'
 import TRANSLATIONS from '../_locales/en/strings.json'
 import { INSTALLATION_URL, TWITTER_URL, CHANGELOG_URL } from '../common/constants'
 import KEYS from '../common/keys'
-import { encodeMarketHashName } from '../common/utility'
 
 export default {
   data() {
@@ -158,7 +165,8 @@ export default {
       status: false,
       twitter: TWITTER_URL,
       changeLog: CHANGELOG_URL,
-      version: ''
+      version: '',
+      openAllStatus: false
     }
   },
   computed: {
@@ -192,6 +200,15 @@ export default {
     },
     async openPage(url) {
       await browser.tabs.create({ url })
+    },
+    async openAll() {
+      if (this.openAllStatus) {
+        return
+      }
+      this.openAllStatus = true
+      await browser.runtime.sendMessage({
+        type: KEYS.OPEN_ALL_NOTIFICATIONS
+      })
     },
     async getData() {
       this.getStatus()
@@ -247,20 +264,10 @@ export default {
         notification
       })
     },
-
     async openListingPage(notification) {
-      const { name, appid } = notification.item
-      const encodedName = encodeMarketHashName(name)
-      const url = `https://steamcommunity.com/market/listings/${appid}/${encodedName}`
-      const tabs = await browser.tabs.query({
-        url
-      })
-      if (tabs.length > 0) {
-        await browser.tabs.update(tabs[0].id, { active: true })
-        return
-      }
-      await browser.tabs.create({
-        url: `${url}#smipt`
+      await browser.runtime.sendMessage({
+        type: KEYS.OPEN_NOTIFICATION,
+        notification
       })
     },
     itemCountsMessage(itemCount) {

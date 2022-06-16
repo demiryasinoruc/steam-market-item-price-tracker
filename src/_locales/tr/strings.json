@@ -4,6 +4,7 @@
   "goToTwitter": "Twitter'a git",
   "goToChangelog": "Değişim günlüğüne git",
   "version": "Versiyon",
+  "openAll": "Tümünü Aç",
   "sellOrderDecreased": "Satış fiyatı düştü",
   "sellOrderIncreased": "Satış fiyatı arttı",
   "walletNotFound": "Cüzdan bulunamadı",

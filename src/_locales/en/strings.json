@@ -4,6 +4,7 @@
   "goToTwitter": "Go to Twitter",
   "goToChangelog": "Go to changelog",
   "version": "Version",
+  "openAll": "Open All",
   "sellOrderDecreased": "Sell order price decreased",
   "sellOrderIncreased": "Sell order price increased",
   "walletNotFound": "Wallet not found",

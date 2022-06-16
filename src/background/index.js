@@ -2,7 +2,7 @@ import browser from 'webextension-polyfill'
 import logger from '../common/logger-builder'
 import KEYS from '../common/keys'
 import { NOTIFICATION_BASE, INSTALLATION_URL } from '../common/constants'
-import { createGuid, encodeMarketHashName } from '../common/utility'
+import { delay, createGuid, encodeMarketHashName } from '../common/utility'
 import TRANSLATIONS from '../_locales/en/strings.json'
 import LANGUAGES from '../data/languages.json'
 
@@ -187,11 +187,9 @@ const checkDiff = (data, item) => {
 
 const readData = async iteration => {
   const item = trackListData[iteration]
-  const orderHistogramUrl = `https://steamcommunity.com/market/itemordershistogram?country=${
-    settings.country
-  }&language=${settings.language}&currency=${settings.currency}&item_nameid=${
-    item.id
-  }&two_factor=0&norender=1`
+  const orderHistogramUrl = `https://steamcommunity.com/market/itemordershistogram?country=${settings.country
+    }&language=${settings.language}&currency=${settings.currency}&item_nameid=${item.id
+    }&two_factor=0&norender=1`
   const steamResponse = await fetch(orderHistogramUrl)
   if (steamResponse.status !== 200) {
     trackingIteration--
@@ -203,6 +201,23 @@ const readData = async iteration => {
     return
   }
   checkDiff(data, item)
+}
+
+const openItemPageByNotification = async (notification, active = true) => {
+  const { name, appid } = notification.item
+  const encodedName = encodeMarketHashName(name)
+  const url = `https://steamcommunity.com/market/listings/${appid}/${encodedName}`
+  const tabs = await browser.tabs.query({
+    url
+  })
+  if (tabs.length > 0) {
+    await browser.tabs.update(tabs[0].id, { active: false })
+    return
+  }
+  await browser.tabs.create({
+    url: `${url}#smipt`,
+    active
+  })
 }
 
 const start = async () => {
@@ -388,6 +403,23 @@ const onRuntimeMessageHandler = (request, sender) => {
     case KEYS.GET_TRANSLATIONS: {
       return new Promise(async resolve => {
         resolve({ translations })
+      })
+    }
+    case KEYS.OPEN_NOTIFICATION: {
+      return new Promise(async resolve => {
+        const { notification } = request;
+        openItemPageByNotification(notification)
+        resolve()
+      })
+    }
+    case KEYS.OPEN_ALL_NOTIFICATIONS: {
+      return new Promise(async resolve => {
+        for (let i = 0; i < notifications.length; i++) {
+          const notification = notifications[i];
+          openItemPageByNotification(notification, i === 0)
+          await delay(2000)
+        }
+        resolve()
       })
     }
     default: {
