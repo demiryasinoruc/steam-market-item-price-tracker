@@ -1,4 +1,11 @@
-## v1.0.6 (In Review)
+## v1.0.7 (In Review)
+
+### Added
+
+- Open all notifications button in popup (It opens each page every 2 seconds, otherwise sometimes Steam cannot load the pages properly)
+- Remove notification (if exist for item) on item remove
+
+## v1.0.6 (Live)
 
 ### Added
 
