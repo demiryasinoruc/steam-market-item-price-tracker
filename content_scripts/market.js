@@ -1,5 +1,4 @@
-import browser from 'webextension-polyfill'
-import { INSTALLATION_COMPLETED } from '../common/keys'
+const browser = chrome || browser
 
 console.log('%cSteam Market Item Price Tracker worked!!!', 'color: #299ddc')
 
@@ -45,7 +44,7 @@ const init = async () => {
   }
   const user = await extratData()
   await browser.runtime.sendMessage({
-    type: INSTALLATION_COMPLETED,
+    type: keys.INSTALLATION_COMPLETED,
     user
   })
 }

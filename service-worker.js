@@ -1,11 +1,11 @@
-import browser from 'webextension-polyfill'
-import logger from '../common/logger-builder'
-import KEYS from '../common/keys'
-import { NOTIFICATION_BASE, INSTALLATION_URL } from '../common/constants'
-import { delay, createGuid, encodeMarketHashName } from '../common/utility'
-import TRANSLATIONS from '../_locales/en/strings.json'
-import LANGUAGES from '../data/languages.json'
+import logger from './common/logger-builder'
+import KEYS from './common/keys'
+import { NOTIFICATION_BASE, INSTALLATION_URL } from './common/constants'
+import { delay, createGuid, encodeMarketHashName } from './common/utility'
+import TRANSLATIONS from './_locales/en/strings.json'
+import LANGUAGES from './data/languages.js'
 
+const browser = chrome || browser
 let trackListData = []
 let notifications = []
 let translations = TRANSLATIONS
@@ -84,7 +84,7 @@ const createUpdateNotification = async (
 
 const setBadgeTextNotificationCount = async () => {
   const text = notifications.length === 0 ? '' : notifications.length.toString()
-  await browser.browserAction.setBadgeText({ text })
+  await browser.action.setBadgeText({ text })
 }
 
 const addNotification = async (notificationId, item, title, message) => {

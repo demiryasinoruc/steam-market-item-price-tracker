@@ -1,0 +1,13 @@
+ @import url('/assets/fonts/font-awesome/css/font-awesome.min.css');
+
+ body {
+     min-width: 600px;
+ }
+
+ .list-group-item {
+     padding: 0.5rem 0.75rem;
+ }
+
+ .version {
+     line-height: 38px;
+ }

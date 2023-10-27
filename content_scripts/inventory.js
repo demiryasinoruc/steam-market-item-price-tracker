@@ -1,11 +1,6 @@
-import browser from 'webextension-polyfill'
-
-import getMarketHashNameFromUrl from '../common/steam'
-import { GET_ITEMS, GET_TRANSLATIONS } from '../common/keys'
-import { createElementFromJson, delay } from '../common/utility'
-import INVENTORY_ELEMENTS from '../data/inventory.elements.json'
-
 console.log('%cSteam Market Item Price Tracker worked!!!', 'color: #299ddc')
+
+const browser = chrome || browser
 
 let translations = {}
 
@@ -27,11 +22,11 @@ window.addEventListener('message', async e => {
     case 'response-inventory-data': {
       const { marketHashNames } = e.data
       const names = [...new Set(marketHashNames.map(x => x.market_hash_name))]
-      const response = await browser.runtime.sendMessage({
-        type: GET_ITEMS,
+      const items = await browser.runtime.sendMessage({
+        type: keys.GET_ITEMS,
         names
       })
-      const { items } = response
+
       for (let i = 0; i < items.length; i++) {
         const item = items[i]
         const foundedItems = marketHashNames.filter(row => {
@@ -50,37 +45,8 @@ window.addEventListener('message', async e => {
   }
 })
 
-const script = document.createElement('script')
-script.innerText = `
-window.addEventListener("message", async (e) => {
-    switch (e.data.type) {
-      case "get-inventory-data": {
-        const idList = e.data.ids;
-        const marketHashNames = [];
-        for (let i = 0; i < idList.length; i++) {
-          const id = idList[i];
-          const item = g_ActiveInventory.m_rgAssets[id];
-          if (item && item.description.marketable === 1) {
-            marketHashNames.push({
-              market_hash_name: item.description.market_hash_name,
-              id: item.appid + '_' + item.contextid + '_' + id,
-            });
-          }
-        }
-        window.postMessage(
-          {
-            type: "response-inventory-data",
-            marketHashNames: marketHashNames
-          },
-          "*"
-        );
-        break;
-      }
-    }
-  });
-`
 
-const retrieveInventoryItemDescription = function(ids) {
+const retrieveInventoryItemDescription = function (ids) {
   window.postMessage(
     {
       type: 'get-inventory-data',
@@ -105,21 +71,28 @@ const addPriceTrackerContent = async parent => {
 
   const hashNames = []
   const itemInfos = document.querySelectorAll('#iteminfo0,#iteminfo1')
+
   await delay(250)
+
   const activeInfo = Array.from(itemInfos).find(i => i.style.display !== 'none')
-  if (!activeInfo) {
+
+  if (!activeInfo || activeInfo.length < 1) {
     return
   }
-  const marketUrlElement = activeInfo.querySelector(
-    '.item_market_actions > div > div a'
-  )
+
+  const marketUrlElement = activeInfo.querySelector('.item_market_actions > div > div a')
+
+  if (!marketUrlElement) {
+    return
+  }
+
   const marketUrl = marketUrlElement.attributes.href.value
   const marketHashName = getMarketHashNameFromUrl(marketUrl)
 
   hashNames.push(marketHashName)
 
-  const { items } = await browser.runtime.sendMessage({
-    type: GET_ITEMS,
+  const items = await browser.runtime.sendMessage({
+    type: keys.GET_ITEMS,
     names: hashNames
   })
 
@@ -133,7 +106,14 @@ const addPriceTrackerContent = async parent => {
     minSalesAmount,
     maxSalesAmount
   } = item
-  const rows = createElementFromJson(INVENTORY_ELEMENTS, translations)
+
+
+  const url = browser.runtime.getURL(
+    'data/inventory.elements.json'
+  )
+  const inventoryElements = await fetch(url).then(res => res.json())
+  const rows = createElementFromJson(inventoryElements, translations)
+
   const minBuyOrderBadge = rows.querySelector('#smipt-minBuyOrder')
   const maxBuyOrderBadge = rows.querySelector('#smipt-maxBuyOrder')
   const minSaleOrderBadge = rows.querySelector('#smipt-minSellOrder')
@@ -146,6 +126,7 @@ const addPriceTrackerContent = async parent => {
 
   const gameInfoSibling = gameInfo.nextElementSibling
   itemContainer.appendChild(rows)
+
   gameInfo.parentElement.insertBefore(itemContainer, gameInfoSibling)
   hashNames.length = 0
 }
@@ -173,10 +154,17 @@ const handleTrackData = target => {
 }
 
 const init = async () => {
-  document.head.appendChild(script)
-  ;({ translations } = await browser.runtime.sendMessage({
-    type: GET_TRANSLATIONS
-  }))
+  const s = document.createElement('script');
+  s.src = chrome.runtime.getURL('content_scripts/inventory.inject.js');
+  s.onload = function () {
+    this.remove();
+  };
+  (document.head || document.documentElement).appendChild(s);
+
+  translations = await browser.runtime.sendMessage({
+    type: keys.GET_TRANSLATIONS
+  })
+
   const action0 = document.querySelector('#iteminfo0_item_actions')
   const action1 = document.querySelector('#iteminfo1_item_actions')
 

@@ -1,16 +1,7 @@
-import browser from 'webextension-polyfill'
-
-import {
-  GET_ITEM,
-  GET_TRANSLATIONS,
-  REMOVE_ITEM,
-  SET_ITEM
-} from '../common/keys'
-import { createElementFromJson, delay } from '../common/utility'
-
-import LISTING_ELEMENTS from '../data/listing.elements.json'
-
 console.log('%cSteam Market Item Price Tracker worked!!!', 'color: #299ddc')
+
+const browser = chrome || browser
+const { GET_ITEM, GET_TRANSLATIONS, REMOVE_ITEM, SET_ITEM } = keys
 
 let currentItem = null
 let currentItemId = null
@@ -23,7 +14,6 @@ let maxOrderAmountInput = null
 let minSalesAmountInput = null
 let maxSalesAmountInput = null
 
-let translations = {}
 
 const inputOnBlur = e => {
   const value = parseFloat(e.target.value)
@@ -90,11 +80,18 @@ const removeHandler = async () => {
   setMessage('Successfully removed', 'smipt-success-message')
 }
 
-const createSection = async () => {
-  const { stepIncreaser } = await browser.storage.local.get('stepIncreaser')
+const createSection = async (translations) => {
+  const { stepIncreaser } = await browser.storage.local.get({ stepIncreaser: 0.01 })
+
   const item = currentItem || {}
   const myListings = document.querySelector('#myListings')
-  const panel = createElementFromJson(LISTING_ELEMENTS, translations)
+
+  const url = browser.runtime.getURL(
+    'data/listing.elements.json'
+  )
+  const listingElements = await fetch(url).then(res => res.json())
+
+  const panel = createElementFromJson(listingElements, translations)
 
   minOrderAmountInput = panel.querySelector('#smipt-minOrderAmount')
   maxOrderAmountInput = panel.querySelector('#smipt-maxOrderAmount')
@@ -120,11 +117,12 @@ const createSection = async () => {
 
   saveButton.addEventListener('click', saveHandler)
   removeButton.addEventListener('click', removeHandler)
-
   myListings.parentNode.insertBefore(panel, myListings)
 }
 
 const init = async () => {
+
+
   const START_SERACH_PATTERN = /Market_LoadOrderSpread\( (\d+) \);/m
   const script = Array.from(document.querySelectorAll('script')).find(i =>
     i.textContent.match(START_SERACH_PATTERN)
@@ -133,43 +131,53 @@ const init = async () => {
   if (!script) {
     return
   }
-  const matches = script.textContent.match(START_SERACH_PATTERN)
-  if (matches.length < 2) {
+
+  const itemId = document.body.textContent.match(/Market_LoadOrderSpread\(\s?(\d+)\s?\);/)
+
+  if (!itemId) {
     return
   }
 
-  ;({ translations } = await browser.runtime.sendMessage({
+  currentItemId = itemId[1]
+
+  const translations = await browser.runtime.sendMessage({
     type: GET_TRANSLATIONS
-  }))
+  })
 
   const urlObject = new URL(window.location.href)
   const { hash, pathname } = urlObject
 
   currentAppName = document.querySelector('#largeiteminfo_game_name')
     .textContent
-  // eslint-disable-next-line prefer-destructuring
-  currentItemId = matches[1]
+
   const urlParts = pathname.split('/').filter(i => i)
   const listingsIndex = urlParts.indexOf('listings')
+
   currentAppId = urlParts[listingsIndex + 1]
   currentItemName = decodeURIComponent(urlParts[listingsIndex + 2])
 
-  const { item } = await browser.runtime.sendMessage({
+  currentItem = await browser.runtime.sendMessage({
     type: GET_ITEM,
     id: currentItemId
   })
-  currentItem = item
-  createSection()
+
+  console.log(currentItem)
+
+  createSection(translations)
+
   await delay(500)
+
   if (hash === '#smipt') {
     const section = document.querySelector('#smipt-section')
     if (!section) {
       return
     }
+
     section.scrollIntoView({
       behavior: 'smooth',
       block: 'start'
     })
+
   }
 }
 

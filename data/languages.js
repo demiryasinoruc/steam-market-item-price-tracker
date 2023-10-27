@@ -1,4 +1,4 @@
-[
+var supportedLanguages = [
   { "key": "bulgarian", "value": "български език", "iso": "bg" },
   { "key": "schinese", "value": "简体中文", "iso": "zh-CN" },
   { "key": "tchinese", "value": "繁體中文", "iso": "zh-TW" },
